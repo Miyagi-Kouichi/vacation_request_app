@@ -1,0 +1,99 @@
+<%= render partial: "header", locals: { user: @user } %>
+
+<div class='item-info'>
+  <h3 class='group-name'>
+    <%= @group.group_name %>
+  </h3>
+  <% if @group.users.exists? %> 
+      <% @group.users.each do |f| %>
+        <%# <li> %>
+          <span>・<span><%= f.user_name %>
+        <%# </li>   %>
+      <% end %>
+  <% else %>
+      <div class='menber_name'>
+        <span>グループメンバーがいません!</span>
+      </div>
+  <% end %>
+</div>
+
+<ul class='item-contents'>
+  <div class='item-info'>   
+    <% if @group_holidays.exists? %> 
+      <% @group_holidays.each do |f| %>
+        <%= link_to holiday_path(f.id), method: :get do %>
+          <table class="request-table">
+              <tr>
+                  <th class="detail-item"><%= "名前" %></th>
+                  <th class="detail-item"><%= "申請日" %></th>
+                  <th class="detail-item"><%= "取得日" %></th>
+                  <th class="detail-item"><%= "日/時" %></th>
+                  <th class="detail-item"><%= "時間休・内訳" %></th>
+                  <th class="detail-item"><%= "時間休・合計" %></th>
+                  <th class="detail-item"><%= "事由" %></th>
+                  <th class="detail-item"><%= "リーダー" %></th>
+                  <th class="detail-item"><%= "部長" %></th>
+                  <th class="detail-item"><%= "総務" %></th>
+              </tr>
+            <div class="formats">
+              <tr>
+                <td class="detail-value"><%= f.user.user_name %></td>
+                <td class="detail-value"><%= f.created_at.strftime('%Y/%m/%d') %></td>
+                <td class="detail-value"><%= "" %><%= f.application_date.strftime('%Y/%m/%d') %>
+                <td class="detail-value"><%= f.acquisition_days %></td>
+                <% if f.holiday_time_start.nil? %> 
+                      <td class="detail-value"><span>時間の指定なし</span></td>
+                <% else %>
+                      <td class="detail-value"><%= "start " %><%= f.holiday_time_start.strftime('%H') %>
+                                          <%= "〜end " %><%= f.holiday_time_end.strftime( "%H" ) %></td>
+                <% end %> 
+                <td class="detail-value"><%= f.acquisition_time %>時間</td>
+                <td class="detail-value"><%= f.reason %></td>
+                  <% if Request.exists?(holiday_id: f.id) %> 
+                        <% if Request.exists?(holiday_id: f.id, position: "リーダー") %>
+                            <% request = Request.find_by(holiday_id: f.id, position: "リーダー") %>
+                            <% if request.yes_no == "yes" %>
+                              <td class="detail-value"><span>✅</span><%= request.user.user_name %></td>
+                            <% elsif request.yes_no == "no" %>
+                              <td class="detail-value"><span>❌</span><%= request.user.user_name %></td>
+                            <% end %>
+                        <% else %>
+                              <td class="detail-value"><span>--</span></td>
+                        <% end %>
+                        <% if Request.exists?(holiday_id: f.id, position: "部長") %>
+                            <% request = Request.find_by(holiday_id: f.id, position: "部長") %>
+                            <% if request.yes_no == "yes" %>
+                              <td class="detail-value"><span>✅</span><%= request.user.user_name %></td>
+                            <% elsif request.yes_no == "no" %>
+                              <td class="detail-value"><span>❌</span><%= request.user.user_name %></td>
+                            <% end %>
+                        <% else %>
+                              <td class="detail-value"><span>--</span></td>
+                        <% end %>         
+                        <% if Request.exists?(holiday_id: f.id, position: "総務") %>
+                            <% request = Request.find_by(holiday_id: f.id, position: "総務") %>
+                            <% if request.yes_no == "yes" %>
+                              <td class="detail-value"><span>✅</span><%= request.user.user_name %></td>
+                            <% elsif request.yes_no == "no" %>
+                              <td class="detail-value"><span>❌</span><%= request.user.user_name %></td>
+                            <% end %>
+                        <% else %>
+                              <td class="detail-value"><span>--</span></td>
+                        <% end %> 
+                  <% else %>
+                      <td class="detail-value"><span>--</span></td>
+                      <td class="detail-value"><span>--</span></td>
+                      <td class="detail-value"><span>--</span></td>
+                  <% end %>
+                </tr>
+            </div>
+          </table>
+        <% end %>
+      <% end %>
+    <% else %>
+        <div class='menber_name'>
+          <span>有給休暇の申請はまだありません</span>
+        </div>
+    <% end %>       
+  </div>
+</ul>

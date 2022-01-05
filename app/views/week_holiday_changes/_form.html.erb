@@ -1,0 +1,16 @@
+<%= form_with model: @week_holiday do |f| %>
+
+     <table class="request-table">
+          <tr>
+               <th class="detail-item"><%= "申請日" %></th>
+               <th class="detail-item"><%= "週休日" %></th>
+               <th class="detail-item"><%= "変更日" %></th>
+          </tr>
+          <tr>
+               <td class="detail-value"><%= Date.today %></td>
+               <td class="detail-value"><%= "" %><%= f.date_field :original_leave %>
+               <td class="detail-value"><%= "" %><%= f.date_field :changed_leave %>
+          </tr>
+     </table>
+     <%= f.submit "SEND" ,class:"send-btn"%>
+<% end %>

@@ -1,0 +1,2 @@
+module RemainingHolidayHelper
+end

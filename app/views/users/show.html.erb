@@ -1,0 +1,87 @@
+<%= render partial: "header", locals: { user: @user } %>
+
+
+    <div class="total_holiday">
+          <% if RemainingHoliday.exists?(user_id: @user.id) %> 
+               <h2><%= @user.user_name %>の残りの有給休暇取得可能時間は<%= @r.changeable_days %>日と<%= @r.changeable_time %>時間です。</h2> 
+          <% end %>
+     </div>
+
+<div class="total_holiday">
+     <% if RemainingHoliday.exists?(user_id: @user.id) %>
+          <table class="request-table">
+               <tr>
+                    <th class="detail-item"><%= "入社年月日" %></th>
+                    <th class="detail-item"><%= "有効期間" %></th>
+                    <th class="detail-item"><%= "昨年度繰越分" %></th>
+                    <th class="detail-item"><%= "今年度付与分" %></th>
+                    <th class="detail-item"><%= "合計" %></th>
+                    <th class="detail-item"><%= "勤務時間の属性" %></th>
+                    <th class="detail-item"><%= "備考" %></th>
+                    <th class="detail-item"><%= "時間単位での取得可能時間" %></th>
+               </tr> 
+               <div class="formats">
+                    <tr>
+                         <td class="detail-value"><%= "" %><%= @r.joining_date %></td>
+                         <td class="detail-value"><%= @r.effective_period_start %>  〜
+                                                  <%= @r.effective_period_end %></td>
+                         <td class="detail-value"><%= "" %><%= @r.last_year_days %>日
+                                                  <%= "" %><%= @r.last_year_time %>時間</td>
+                         <td class="detail-value"><%= @r.this_year_days %>日</td>
+                         <td class="detail-value"><%= "" %><%= @r.total_days %>日
+                                                  <%= "" %><%= @r.total_time  %>時間</td>  
+                         <td class="detail-value"><%= @r.working_hours %></td>
+                         <td class="detail-value"><%= @r.reason %></td>
+                         <td class="detail-value">残り<%= @r.time_limit %>時間</td>
+                    </tr>
+               </div>
+          </table>
+     <% else %> 
+          <div class="if_not_exist">
+               <p>有給休暇はまだ付与されていません</p>
+               <div class="header-button">
+                    <%= link_to "有給休暇を付与する", user_remaining_holiday_index_path(user_id: @user.id) %>
+               </div> 
+          </div>
+     <% end %> 
+  
+
+
+
+<% @holidays.each do |f| %> 
+     <table class="request-table">
+          <tr>
+               <th class="detail-item"><%= "申請日" %></th>
+               <th class="detail-item"><%= "取得日" %></th>
+               <th class="detail-item"><%= "取得日数" %></th>
+               <th class="detail-item"><%= "時〜時" %></th>
+               <th class="detail-item"><%= "取得時間" %></th>
+               <th class="detail-item"><%= "事由" %></th>
+               <th class="detail-item"><%= "残日数" %></th> 
+               <th class="detail-item"><%= "残時間" %></th> 
+          </tr>
+          <div class="formats">
+               <tr>
+                    <td class="detail-value"><%= f.created_at.strftime('%Y/%m/%d') %></td>
+                    <td class="detail-value"><%= "" %><%= f.application_date.strftime('%Y/%m/%d') %>
+                    <td class="detail-value"><%= f.acquisition_days %></td>
+                    <% if f.holiday_time_start.nil? %> 
+                         <td class="detail-value"><span>ーー</span></td>
+                    <% else %>
+                         <td class="detail-value"><%= "start " %><%= f.holiday_time_start.strftime('%H') %>
+                                             <%= "〜end " %><%= f.holiday_time_end.strftime( "%H" ) %></td>
+                    <% end %> 
+                    <% if f.acquisition_time.nil? %> 
+                         <td class="detail-value"><span>ーー</span></td>
+                    <% else %>
+                         <td class="detail-value"><%= "start " %><%= f.acquisition_time %>時間</td>
+                    <% end %>
+                    <td class="detail-value"><%= f.reason %></td>
+                    <td class="detail-value"><%= f.day_record  %>日</td>
+                    <td class="detail-value"><%= f.time_record %>時間</td>
+               </tr>
+          </div>
+     </table>   
+     <%= link_to "詳細", holiday_path(f.id) %>
+<% end %>
+</div>

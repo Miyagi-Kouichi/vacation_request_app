@@ -1,0 +1,27 @@
+<div class="holiday-header">
+  <div class="left-header">
+    <div class="header-title">
+      <% if current_page?(controller: 'week_holiday_changes', action: 'index') %>
+        <h2>週休変更一覧ページ</h2>
+      <% elsif current_page?(controller: 'week_holiday_changes', action: 'new') %>
+        <h2>週休変更申請ページ</h2>
+      <% elsif current_page?(controller: 'week_holiday_changes', action: 'show') %>
+        <h2>詳細ページ</h2>
+      <% elsif current_page?(controller: 'week_holiday_changes', action: 'edit') %>
+        <h2>週休変更の編集ページ</h2>
+      <% end %>
+    </div>
+  </div>
+  <div class="right-header">
+    <div class="header-button">
+      <% if current_page?(controller: 'holidays', action: 'index') %>
+            <%= link_to "週休変更申請", new_week_holiday_change_path(user_id: current_user.id) %>
+            <%= link_to "週休変更一覧", week_holiday_changes_path(user_id: current_user.id) %>
+      <% else %>
+      <% end %>
+      <%= link_to "トップページ", root_path %>
+      <%= link_to "有給休暇の申請", new_holiday_path %>
+      <%= link_to "管理画面", users_path %>
+    </div>
+  </div>
+</div>

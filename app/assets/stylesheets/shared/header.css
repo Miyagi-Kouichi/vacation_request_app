@@ -1,0 +1,15 @@
+.top-page-header {
+     background-color: grey;
+     color:white;
+     font-size: 15px;
+     font-weight: bold;
+     display: flex;
+     min-width: 200px;
+}
+
+.header-right {
+     display: flex;
+     list-style: none;
+     align-items: flex-end;
+     
+}

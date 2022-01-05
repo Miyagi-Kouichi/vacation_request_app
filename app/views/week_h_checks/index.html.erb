@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Week H Checks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @week_h_checks.each do |week_h_check| %>
+      <tr>
+        <td><%= link_to 'Show', week_h_check %></td>
+        <td><%= link_to 'Edit', edit_week_h_check_path(week_h_check) %></td>
+        <td><%= link_to 'Destroy', week_h_check, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Week H Check', new_week_h_check_path %>

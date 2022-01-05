@@ -1,0 +1,6 @@
+<%= render partial: "header", locals: { user: @user } %>
+
+<%= form_with model: @group, url: group_index_path do |form| %>
+     <%= form.text_area :group_name, class:"items-text", id:"group-name", placeholder:"グループ名を入力してください", maxlength:"20" %>
+     <%= form.submit "作成" %>
+<% end %>

@@ -1,0 +1,2 @@
+module WeekHolidayChangesHelper
+end

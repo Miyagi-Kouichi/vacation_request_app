@@ -1,0 +1,54 @@
+<div class="holiday-header">
+  <div class="left-header">
+    <div class="header-title">
+      <h1><%= @group.group_name %></h1>
+    </div>
+  </div>
+  <div class="right-header">
+    <div class="header-button">
+          <%# <%= link_to "グループを編集する", edit_group_path %> %>
+          <%= link_to "トップページ", root_path %>
+          <%= link_to "戻る", holidays_path %>
+          <% if current_user.position == "総務" %>
+            <%= link_to "グループの新規作成", new_group_path %>
+          <% end %>
+    </div>
+  </div>
+</div> 
+
+
+
+<ul class='item-lists'>
+  <div class='item-info'>
+    <h3 class='group-name'>グループメンバー</h3>        
+    <% if @group.users.exists? %> 
+        <% @group.users.each do |users| %>
+          <ul class='item-lists'>
+            <%= users.user_name %>
+            <%= users.position %>
+            <%= button_to "グループから消去する", group_user_path(group_id: @group.id, user_id: users.id), method: :delete  %>
+          </ul>
+        <% end %>
+        <div class='member_name'>
+        </div>
+    <% else %>
+        <div class='menber_name'>
+          <span>グループメンバーがいません!</span>
+        </div>
+    <% end %> 
+  </div>
+
+
+  <h3 class='group-name'>社員一覧</h3> 
+  <% @user.each do |user| %>
+
+    <% unless GroupUser.exists?(group_id: @group.id, user_id: user.id) %>
+      <ul class='item-lists'>
+        <%= user.user_name %>
+        <%= botton_to "追加", group_group_user_index_path(group_id: @group.id, user_id:user.id),method: :post %>
+      </ul>
+    <% end %>
+
+    
+  <% end %>
+</ul>

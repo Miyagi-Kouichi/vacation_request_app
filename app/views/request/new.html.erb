@@ -1,0 +1,36 @@
+<%= form_with(model: @request, url: holiday_request_index_path, local: true) do |form| %>
+     <h3>申請する</h3>
+     <div class=""></div>
+     <table  class="request-table">
+      <tbody>
+        <tr>
+        <% #最終的にはrequierにしたい %>
+          <th class="detail-item"><%= "申請日" %></th>
+          <th class="detail-item"><%= "取得期間" %></th>
+          <th class="detail-item"><%= "取得時間" %></th>
+          <th class="detail-item"><%= "取得日数" %></th>
+          <th class="detail-item"><%= "事由" %></th>
+          <th class="detail-item"><%= "残日数" %></th>
+          <th class="detail-item"><%= "残時間" %></th>
+          <th class="detail-item"><%= "リーダー印" %></th>
+          <th class="detail-item"><%= "部長印" %></th>
+          <th class="detail-item"><%= "総務印" %></th>
+        </tr>
+        <tr>
+          <%# <td class="detail-value"><%= @holiday.remaining_time %></td> %>
+          <td class="detail-value"><%= "７月２５日" %></td>
+          <td class="detail-value"><%= "８月３日〜８月４日" %></td>
+          <td class="detail-value"><%= "" %></td>
+          <td class="detail-value"><%= "二日間" %></td>
+          <td class="detail-value"><%= "家族旅行のため" %></td>
+          <td class="detail-value"><%= "１５日" %></td>
+          <td class="detail-value"><%= "６時間" %></td>
+          <td class="detail-value"><%= "✅" %></td>
+          <td class="detail-value"><%= "✅" %></td>
+          <td class="detail-value"><%= "✅" %></td>
+        </tr>
+      </tbody>
+     </table>
+     <%# <%= form.text_area :text, placeholder: "text", rows: "10" %> %>
+     <%= form.submit "SEND" %>
+<% end %>

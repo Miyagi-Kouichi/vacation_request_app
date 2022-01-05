@@ -1,0 +1,121 @@
+<%= render partial: "header", locals: { user: @user } %>
+
+
+<table class="request-table">
+    <tr>
+          <th class="detail-item"><%= "名前" %></th>
+          <th class="detail-item"><%= "申請日" %></th>
+          <th class="detail-item"><%= "取得日" %></th>
+          <th class="detail-item"><%= "日/時" %></th>
+          <th class="detail-item"><%= "時 〜 時" %></th>
+          <th class="detail-item"><%= "時間" %></th>
+          <th class="detail-item"><%= "事由" %></th>
+          <th class="detail-item"><%= "リーダー" %></th>
+          <th class="detail-item"><%= "部長" %></th>
+          <th class="detail-item"><%= "総務" %></th>
+    </tr>
+    <div class="formats">
+            <tr>    
+                  <td class="detail-value"><%= @h.user.user_name %></td>
+                  <td class="detail-value"><%= @h.created_at.strftime('%Y/%m/%d') %></td>
+                  <td class="detail-value"><%= "" %><%= @h.application_date.strftime('%Y/%m/%d') %>
+                  <td class="detail-value"><%= @h.acquisition_days %></td>
+                  <% if @h.holiday_time_start.nil? %> 
+                        <td class="detail-value"><span>--</span></td>
+                  <% else %>
+                        <td class="detail-value"><%= "" %><%= @h.holiday_time_start.strftime('%H:%M') %>
+                                          <%= "〜 " %><%= @h.holiday_time_end.strftime( "%H:%M" ) %></td>
+                  <% end %> 
+                  <td class="detail-value"><%= @h.acquisition_time %>時間</td>
+                  <td class="detail-value"><%= @h.reason %></td>
+
+                  <% if Request.exists?(holiday_id: @h.id) %>
+                        <% if Request.exists?(holiday_id: @h.id, position: "リーダー") %>
+                              <% request = Request.find_by(holiday_id: @h.id, position: "リーダー") %>
+                              <% if request.yes_no == "yes" %>
+                                    <td class="detail-value"><span>✅</span><%= request.user.user_name %></td>
+                              <% elsif request.yes_no == "no" %>
+                                    <td class="detail-value"><span>❌</span><%= request.user.user_name %></td>
+                              <% end %>
+                        <% else %>
+                              <td class="detail-value"><span>--</span></td>
+                        <% end %>
+
+                        <% if Request.exists?(holiday_id: @h.id, position: "部長") %>
+                              <% request = Request.find_by(holiday_id: @h.id, position: "部長") %>
+                            <% if request.yes_no == "yes" %>
+                              <td class="detail-value"><span>✅</span><%= request.user.user_name %></td>
+                            <% elsif request.yes_no == "no" %>
+                              <td class="detail-value"><span>❌</span><%= request.user.user_name %></td>
+                            <% end %>
+                        <% else %>
+                              <td class="detail-value"><span>--</span></td>
+                        <% end %>         
+
+                        <% if Request.exists?(holiday_id: @h.id, position: "システム管理者") %>
+                              <% request = Request.find_by(holiday_id: @h.id, position: "システム管理者") %>
+                            <% if request.yes_no == "yes" %>
+                              <td class="detail-value"><span>✅</span><%= request.user.user_name %></td>
+                            <% elsif request.yes_no == "no" %>
+                              <td class="detail-value"><span>❌</span><%= request.user.user_name %></td>
+                            <% end %>
+                        <% else %>
+                              <td class="detail-value"><span>--</span></td>
+                        <% end %> 
+                  <% else %>
+                        <td class="detail-value"><span>--</span></td>
+                        <td class="detail-value"><span>--</span></td>
+                        <td class="detail-value"><span>--</span></td>
+                  <% end %>  
+            </tr>
+    </div>
+</table>
+<table class="request-table">
+
+      <h2>コメント一覧</h2>
+      <% unless @comments.blank? %>
+            <% @comments.each do |c| %>
+                  <div>
+                        <%= c.comment_content %>
+                        ・
+                        <%= c.user.user_name %>
+                        ・
+                        <%= c.created_at.strftime('%Y/%m/%d')  %>
+                  </div>
+            <% end %>
+      <% end %>
+
+      <%= form_for [@h, @comment] do |f| %>
+            <%= f.text_field :comment_content %>
+            <br>
+            <%= f.submit 'コメントする' %>
+      <% end %>
+            
+  
+</table>
+
+      <% unless @h.repuested_by?(current_user) %>        <!-- ログインしているユーザーがリクエスト機能（承認・否認）を使ってなければOK -->  
+            <% if @h.yes_no? %>                          <!-- 自分はリクエスト機能を使っていないが、既に否認（NO）されている場合の処理 -->
+                  <% if @h.user_id == current_user.id %> <!-- 投稿した本人なら、編集・削除できる。 -->
+                        <%= "否認されているので、削除・編集する事ができます。" %>
+                        <td><%= link_to "編集", edit_holiday_path(@h) %></td>
+                        <td><%= link_to "削除", holiday_path(@h), method: :delete %></td> 
+                  <% end %>
+            <% else %>                    <!-- 自分はまだ承認していなくて、まだ否認もされていない場合。ログインユーザーのポジションが部長か総務のいずれか -->
+                  <% unless @h.user_id == current_user.id %>
+                        <% if current_user.position == "役員" || current_user.position == "システム管理者" %>
+                              <%# 部長と総務はグループに属していなくても承認できる。 %>
+                              <%=link_to "承認", holiday_agreement_path(@h.id), method: :post %>   
+                              <%=link_to "否認", holiday_rejected_path(@h.id), method: :post %>
+                        <% elsif @user.position.in?(['リーダー', '主任', '部長']) || @h.user.groups.in?(current_user.groups) %>
+                                    
+                              <% if (@h.user.groups.ids - current_user.groups.ids).size < @h.user.groups.ids.size %>
+                                    <%# リーダーの所属しているグループidが、申請者のグループidを含んでいればOK %>
+                                    <%=link_to "承認", holiday_agreement_path(@h.id), method: :post %>   
+                                    <%=link_to "否認", holiday_rejected_path(@h.id), method: :post %>
+                              <% end %>
+                        <% end %>
+                  <% end %>
+            <% end %>
+      <% end %>
+
