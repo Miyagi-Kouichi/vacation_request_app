@@ -10,17 +10,12 @@
 #   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
 #
 default: &default
-  # adapter: mysql2
-  adapter: postgresql
-  # encoding: utf8mb4
-  # pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  adapter: mysql2
+  encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: vacation_request_app
+  username: root
   password:
-  host: localhost
-  # socket: /tmp/mysql.sock
-  timeout: 5000
-  encoding: unicode # 追加
+  socket: /tmp/mysql.sock
 
 development:
   <<: *default
@@ -54,7 +49,6 @@ test:
 #
 production:
   <<: *default
-  adapter: postgresql
-  encoding: unicode
-  pool: 5
+  database: vacation_request_app_production
+  username: vacation_request_app
   password: <%= ENV['VACATION_REQUEST_APP_DATABASE_PASSWORD'] %>
