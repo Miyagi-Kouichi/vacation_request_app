@@ -26,6 +26,42 @@ class GroupController < ApplicationController
           @group_holidays = Holiday.where(user_id: member_id)
      end
 
+     def edit
+          @group = Group.find(params[:id])
+     end
+          
+     def update
+          @group = Group.find(params[:id])
+          if @group.update(group_params)
+               redirect_to root_path
+          else
+               render :edit
+          end
+     end  
+
+     def group_user
+          @group = Group.find(params[:group_id])
+          @user = User.all
+     end
+
+     def group_join 
+          @group = Group.find(params[:group_id]) 
+          @user = User.find(params[:user_id]) 
+          @group.users << @user
+          if @group.save
+               redirect_to group_user_path(group_id: @group.id, id: @group.id)
+               # 将来的には、JavaScriptで非同期通信にしたい
+          else
+               render :show
+          end
+     end
+
+     def destroy
+          @group = Group.find(params[:id])
+          @group.destroy
+          redirect_to root_path
+     end
+
 
 
      private

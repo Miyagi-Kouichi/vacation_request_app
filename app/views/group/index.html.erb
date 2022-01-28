@@ -1,53 +1,55 @@
 <%= render partial: "header", locals: { user: @user } %>
 
-
-<ul class='item-lists'>
-  <% @groups.each do |group| %>
-
-
-    <h2 class='item-name'><%=  group.group_name%>
-    
-    <% if @user.position.in?(['リーダー', '主任', '部長', '役員', 'システム管理者']) %> <!-- ログインユーザーのポジションが三つの中に含まれているかどうか -->
-      <% if group.users.exists? %>                         <!-- グループにユーザーが存在するかどうか -->
-        <% if Holiday.where(user_id: group.users.ids).exists? %><!-- グループのユーザーの申請した有給があるかどうか -->
-          <% @group_holidays = Holiday.where(user_id: group.users.ids) %>
-            <% i = 0 %>
-            <% @group_holidays.each do |request_holiday| %><!-- グループの有給申請を一つずつ精査していく -->
-              <% unless Request.where(holiday_id: request_holiday.id, yes_no: "no").exists? %>  <!-- 既に否認されているものでなければOK -->
-                <% unless Request.where(holiday_id: request_holiday.id, user_id: @user.id).exists? || request_holiday.user == current_user%>
-                  <!-- ↑既にログインユーザーが承認していない。もしくは、申請したのがログインユーザーでなければOK -->
-                  <% if current_user.position == "システム管理者" %><!-- ログインユーザーのpositionがシステム管理者の場合 -->
-                    <% i += 1 %>
-                  <% else %>
-                    <% if  current_user.groups.present? %><!-- ログインユーザーが現在グループに所属している場合 --> 
-                      <% if current_user.group_ids.include?(group.id) %>
+<div class='main'>
+  <ul class='item-lists'>
+    <% @groups.each do |group| %>
+      <h2 class='item-name'><%=  group.group_name%>
+      </h2>
+      <h2 class='item-name'>
+        <% if @user.position.in?(['リーダー', '主任', '部長', '役員', 'システム管理者']) %> <!-- ログインユーザーのポジションが三つの中に含まれているかどうか -->
+          <% if group.users.exists? %>                         <!-- グループにユーザーが存在するかどうか -->
+            <% if Holiday.where(user_id: group.users.ids).exists? %><!-- グループのユーザーの申請した有給があるかどうか -->
+              <% @group_holidays = Holiday.where(user_id: group.users.ids) %>
+                <% i = 0 %>
+                <% @group_holidays.each do |request_holiday| %><!-- グループの有給申請を一つずつ精査していく -->
+                  <% unless Request.where(holiday_id: request_holiday.id, yes_no: "no").exists? %>  <!-- 既に否認されているものでなければOK -->
+                    <% unless Request.where(holiday_id: request_holiday.id, user_id: @user.id).exists? || request_holiday.user == current_user%>
+                      <!-- ↑既にログインユーザーが承認していない。もしくは、申請したのがログインユーザーでなければOK -->
+                      <% if current_user.position == "システム管理者" %><!-- ログインユーザーのpositionがシステム管理者の場合 -->
                         <% i += 1 %>
+                      <% else %>
+                        <% if  current_user.groups.present? %><!-- ログインユーザーが現在グループに所属している場合 --> 
+                          <% if current_user.group_ids.include?(group.id) %>
+                            <% i += 1 %>
+                          <% end %>
+                        <% end  %>
+                        
                       <% end %>
-                    <% end  %>
-                    
+                    <% end %>
                   <% end %>
                 <% end %>
-              <% end %>
-            <% end %>
-            <% if i > 0 %>
-              <%= "🔔" %><%= i %><%= "件 未承認の有給申請があります" %>
+                <% if i > 0 %>
+                  <%= "🔔" %><%= i %><%= "件 未承認の有給申請があります" %>
+                <% else %>
+                  <%= "承認待ちの申請はありません" %>
+                <% end %>
             <% else %>
-              <%= "承認待ちの申請はありません" %>
+              <%= "申請はまだありません" %>
             <% end %>
-        <% else %>
-          <%= "申請はまだありません" %>
+          <% end %>
         <% end %>
-      <% end %>
+      </h2>
+
+      <div class='list'>
+        <li class='link-list'><%= link_to "有給申請一覧", group_path(id: group.id) %></li>
+        <li class='link-list'><%= link_to "週休変更申請一覧", group_path(id: group.id) %></li>
+        <% if current_user.position == "システム管理者"  %>
+          <li class='link-list'><%= link_to "グループ情報の編集", edit_group_path(id: group.id) %></li>
+        <% end %>
+      </div>
     <% end %>
-    </h2>
-
-    <div class='list'>
-      <li><%= link_to "有給申請一覧", group_path(id: group.id) %></li>
-      <li><%= link_to "グループ情報の編集", group_user_path(id: group.id) %></li>
-    </div>
-  <% end %>
-</ul>
-
+  </ul>
+</div>
 
 
 

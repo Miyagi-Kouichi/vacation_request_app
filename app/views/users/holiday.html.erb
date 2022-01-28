@@ -68,8 +68,8 @@
                         <% else %>
                               <td class="detail-value"><span>--</span></td>
                         <% end %>         
-                        <% if Request.exists?(holiday_id: f.id, position: "総務") %>
-                            <% request = Request.find_by(holiday_id: f.id, position: "総務") %>
+                        <% if Request.exists?(holiday_id: f.id, position: "システム管理者") %>
+                            <% request = Request.find_by(holiday_id: f.id, position: "システム管理者") %>
                             <% if request.yes_no == "yes" %>
                               <td class="detail-value"><span>✅</span><%= request.user.user_name %></td>
                             <% elsif request.yes_no == "no" %>

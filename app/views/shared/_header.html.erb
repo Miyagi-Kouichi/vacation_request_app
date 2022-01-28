@@ -1,23 +1,22 @@
 <header class='top-page-header'>
   <div class='site-icon'>
-          <h2>●大宮工機の有給休暇管理アプリ</h2>
+          <h1><%= link_to "●大宮工機 有給休暇管理", root_path %></h1>
   </div>
 
-     <div class="holiday-header">
-          <div class="left-header">
+
+     <%# <div class="left-header"> %>
+          <div class="header-user-name">
                <% if user_signed_in? %>
                     <h1><%=current_user.user_name%>さん</h1>
                <% end %>
           </div>
-     </div>
-
-     <div class='header-rigth'>
+     <%# </div> %>
+     <%# <div class='right-header'> %>
           <% if user_signed_in? %>
-               <%# <li><%= link_to current_user.name,herf="#", class: "user-name" %>
-               <ul><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "logout" %></ul>
+               <h4><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "logout" %></h4>
           <% else %>
-               <ul><%= link_to 'ログイン', new_user_session_path, class: "login" %></ul>
-               <ul><%= link_to '新規登録', new_user_registration_path, class: "sign-up" %></ul>
+               <h4><%= link_to 'ログイン', new_user_session_path, class: "login" %></h4>
+               <h4><%= link_to '新規登録', new_user_registration_path, class: "sign-up" %></h4>
           <% end %>
-     </div>
+     <%# </div> %>
 </header>

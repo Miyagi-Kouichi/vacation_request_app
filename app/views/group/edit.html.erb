@@ -1,16 +1,25 @@
-<div class="holiday-header">
-  <div class="left-header">
-    <div class="header-title">
-      <%# <%= @room.name %>
-      <p>グループの名前の変更と、グループ自体の消去ができる</p>
+<%= render partial: 'group/header' %>
+<div class="item-show">
+    <div class="edit-group">
+     <h1><%= @group.group_name%></h1>
     </div>
-  </div>
-  <div class="right-header">
-    <div class="header-button">
-          <%# <%= link_to "グループを編集する", edit_group_path %> %>
-          
-          <%= link_to "グループを新規作成する", new_group_path %>
-          <%= link_to "戻る", group_index_path %>
+  
+  <div class="item-box">
+
+    <div class="edit-form">
+      <h3>グループの名前の変更</h3>
+      <%= form_with model: @group, local: true do |f| %> 
+        <%= render :partial => 'form', :locals => {:f => f, :edit_flag => true} %>
+      <% end %>
     </div>
+
+    <div class='add-group'>
+      <%= link_to "グループメンバーの追加", group_group_user_path(id: @group.id, group_id: @group.id) %>
+    </div>
+    <div class="delete-btn">
+
+      <%= link_to 'グループを消去する', group_path(gorup_id: @group.id), method: :delete, data: { confirm: '削除しますか？' } %>
+    </div>
+
   </div>
 </div>

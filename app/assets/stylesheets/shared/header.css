@@ -1,15 +1,26 @@
-.top-page-header {
-     background-color: grey;
-     color:white;
-     font-size: 15px;
-     font-weight: bold;
+
+
+* {
+     box-sizing: border-box;
+}
+/* .top-page-header {
+     text-decoration: none;
+     width: 100vw;
+     padding: 2vh 15vw;
      display: flex;
-     min-width: 200px;
+     flex-direction: column;
+} */
+
+.site-icon {
+     text-decoration: none;
+     padding-left: 5%;
 }
 
-.header-right {
-     display: flex;
-     list-style: none;
-     align-items: flex-end;
-     
+a {
+     text-decoration: none;
+}
+a:hover {
+     border-radius: 7px;
+     background-color: gray;
+     color: black;
 }

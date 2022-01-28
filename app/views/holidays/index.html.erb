@@ -9,38 +9,39 @@
      <h2>まだ今年度の有給が付与されていません。総務に連絡をください。</h2>
 <% end %>
 <% @holiday.each do |f| %> 
-     <table class="request-table">
-          <tr>
-               <th class="detail-item"><%= "申請日" %></th>
-               <th class="detail-item"><%= "取得日" %></th>
-               <th class="detail-item"><%= "取得日数" %></th>
-               <th class="detail-item"><%= "時〜時" %></th>
-               <th class="detail-item"><%= "取得時間" %></th>
-               <th class="detail-item"><%= "事由" %></th>
-               <th class="detail-item"><%= "残日数" %></th> 
-               <th class="detail-item"><%= "残時間" %></th> 
-          </tr>
-          <div class="formats">
+     <%= link_to holiday_path(f.id), method: :get do %>
+          <table class="request-table">
                <tr>
-                    <td class="detail-value"><%= f.created_at.strftime('%Y/%m/%d') %></td>
-                    <td class="detail-value"><%= "" %><%= f.application_date.strftime('%Y/%m/%d') %>
-                    <td class="detail-value"><%= f.acquisition_days %></td>
-                    <% if f.holiday_time_start.nil? %> 
-                         <td class="detail-value"><span>ーー</span></td>
-                    <% else %>
-                         <td class="detail-value"><%= "start " %><%= f.holiday_time_start.strftime('%H') %>
-                                             <%= "〜end " %><%= f.holiday_time_end.strftime( "%H" ) %></td>
-                    <% end %> 
-                    <% if f.acquisition_time.nil? %> 
-                         <td class="detail-value"><span>ーー</span></td>
-                    <% else %>
-                         <td class="detail-value"><%= "start " %><%= f.acquisition_time %>時間</td>
-                    <% end %>
-                    <td class="detail-value"><%= f.reason %></td>
-                    <td class="detail-value"><%= f.day_record  %>日</td>
-                    <td class="detail-value"><%= f.time_record %>時間</td>
+                    <th class="detail-item"><%= "申請日" %></th>
+                    <th class="detail-item"><%= "取得日" %></th>
+                    <th class="detail-item"><%= "取得日数" %></th>
+                    <th class="detail-item"><%= "時〜時" %></th>
+                    <th class="detail-item"><%= "取得時間" %></th>
+                    <th class="detail-item"><%= "事由" %></th>
+                    <th class="detail-item"><%= "残日数" %></th> 
+                    <th class="detail-item"><%= "残時間" %></th> 
                </tr>
-          </div>
-     </table>   
-     <%= link_to "詳細", holiday_path(f.id) %>
+               <div class="formats">
+                    <tr>
+                         <td class="detail-value"><%= f.created_at.strftime('%Y/%m/%d') %></td>
+                         <td class="detail-value"><%= "" %><%= f.application_date.strftime('%Y/%m/%d') %>
+                         <td class="detail-value"><%= f.acquisition_days %></td>
+                         <% if f.holiday_time_start.nil? %> 
+                              <td class="detail-value"><span>ーー</span></td>
+                         <% else %>
+                              <td class="detail-value"><%= "start " %><%= f.holiday_time_start.strftime('%H') %>
+                                                  <%= "〜end " %><%= f.holiday_time_end.strftime( "%H" ) %></td>
+                         <% end %> 
+                         <% if f.acquisition_time.nil? %> 
+                              <td class="detail-value"><span>ーー</span></td>
+                         <% else %>
+                              <td class="detail-value"><%= "start " %><%= f.acquisition_time %>時間</td>
+                         <% end %>
+                         <td class="detail-value"><%= f.reason %></td>
+                         <td class="detail-value"><%= f.day_record  %>日</td>
+                         <td class="detail-value"><%= f.time_record %>時間</td>
+                    </tr>
+               </div>
+          </table>   
+     <% end %>
 <% end %>

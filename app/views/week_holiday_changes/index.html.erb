@@ -2,6 +2,7 @@
 
 
 <% @week_holidays.each do |f| %> 
+  <%= link_to week_holiday_change_path(f.id), method: :get do %>
      <table class="request-table">
           <tr>
                <th class="detail-item"><%= "名前" %></th>
@@ -39,8 +40,8 @@
                         <% else %>
                               <td class="detail-value"><span>--</span></td>
                         <% end %>         
-                        <% if WeekHCheck.exists?(week_holiday_change_id: f.id, position: "総務") %>
-                            <% check = WeekHCheck.find_by(week_holiday_change_id: f.id, position: "総務") %>
+                        <% if WeekHCheck.exists?(week_holiday_change_id: f.id, position: "システム管理者") %>
+                            <% check = WeekHCheck.find_by(week_holiday_change_id: f.id, position: "システム管理者") %>
                             <% if check.yes_no == "yes" %>
                               <td class="detail-value"><span>✅</span><%= check.user.user_name %></td>
                             <% elsif check.yes_no == "no" %>
@@ -57,5 +58,5 @@
                </tr>
           </div>
      </table>   
-     <%= link_to "詳細", week_holiday_change_path(f.id) %>
+  <% end %>
 <% end %>

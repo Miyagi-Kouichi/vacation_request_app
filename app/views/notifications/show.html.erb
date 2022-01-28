@@ -1,4 +1,4 @@
-<div class="holiday-header">
+<div class="second-header">
   <div class="left-header">
     <div class="header-title">
       <h1><%= @group.group_name %></h1>
@@ -9,7 +9,7 @@
           <%# <%= link_to "グループを編集する", edit_group_path %> %>
           <%= link_to "トップページ", root_path %>
           <%= link_to "戻る", holidays_path %>
-          <% if current_user.position == "総務" %>
+          <% if current_user.position == "システム管理者" %>
             <%= link_to "グループの新規作成", new_group_path %>
           <% end %>
     </div>

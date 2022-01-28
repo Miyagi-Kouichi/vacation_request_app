@@ -14,8 +14,12 @@ Rails.application.routes.draw do
   root to: "group#index"
 
   resources :group do
-    resources :group_user, only:  [:create, :show, :destroy], shallow: true
+    resources :group_user, only:  [:show, :create, :destroy]
+    # get 'show', to: 'gorup_user#show'
+    # post 'join', to: 'gorup#join'
+    # delete 'leave', to: 'gorup#leave'
   end
+  # get "group/group_user" => "group#group_user"
 
   resources :holidays do
     resources :comments, only: [:create] 

@@ -1,4 +1,4 @@
-<div class="holiday-header">
+<div class="second-header">
   <div class="left-header">
     <div class="header-title">
       <% if current_page?(controller: 'holidays', action: 'index') %>
@@ -22,9 +22,9 @@
       <% unless current_page?(controller: 'holidays', action: 'index') %>
         <%= link_to "マイページ", holidays_path %>
       <% end %>
-      <%= link_to "トップページ", root_path %>
+
       <% if current_user.position == "システム管理者"  %>
-          <%= link_to "管理画面", users_path %>
+          <%= link_to "従業員一覧", users_path %>
       <% end %>
     </div>
   </div>

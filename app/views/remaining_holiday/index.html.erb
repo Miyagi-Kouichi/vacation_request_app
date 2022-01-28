@@ -1,37 +1,3 @@
 <%= render  "header"%>
 
-    <div class="total_holiday">
-          <% if RemainingHoliday.exists?(user_id: @user.id) %> 
-               <h2><%= @user.user_name %>の残りの有給休暇取得可能時間は<%= @r.changeable_days %>日と<%= @r.changeable_time %>時間です。</h2> 
-          <% end %>
-     </div>
-
-       <% if RemainingHoliday.exists?(user_id: @user.id) %>
-          <table class="request-table">
-               <tr>
-                    <th class="detail-item"><%= "入社年月日" %></th>
-                    <th class="detail-item"><%= "有効期間" %></th>
-                    <th class="detail-item"><%= "昨年度繰越分" %></th>
-                    <th class="detail-item"><%= "今年度付与分・日数" %></th>
-                    <th class="detail-item"><%= "合計・日数" %></th>
-                    <th class="detail-item"><%= "勤務時間の属性" %></th>
-                    <th class="detail-item"><%= "時間単位での取得可能時間" %></th>
-                    <th class="detail-item"><%= "備考" %></th>
-               </tr> 
-               <div class="formats">
-                    <tr>
-                         <td class="detail-value"><%= "" %><%= @r.date_field %></td>
-                         <td class="detail-value"><%= "" %><%= @r.last_year_days %>日</td>
-                         <td class="detail-value"><%= @r.last_year_time %>時間</td>
-                         <td class="detail-value"><%= @r.this_year_days %>日</td>
-                         <td class="detail-value"><%= @r.total_days %>日</td>
-                         <td class="detail-value"><%= @r.total_time  %>時間</td>
-                         <td class="detail-value"><%= @r.working_hours %></td>
-                         <td class="detail-value">残り<%= @r.time_limit %>時間</td>
-                    </tr>
-               </div>
-          </table>
-     <% end %> 
-
 <%= render  "form"%>
-

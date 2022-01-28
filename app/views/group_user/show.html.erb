@@ -1,32 +1,19 @@
-<div class="holiday-header">
-  <div class="left-header">
-    <div class="header-title">
-      <h1><%= @group.group_name %></h1>
-    </div>
-  </div>
-  <div class="right-header">
-    <div class="header-button">
-          <%# <%= link_to "グループを編集する", edit_group_path %> %>
-          <%= link_to "トップページ", root_path %>
-          <%= link_to "戻る", holidays_path %>
-          <% if current_user.position == "システム管理者" %>
-            <%= link_to "グループの新規作成", new_group_path %>
-          <% end %>
-    </div>
-  </div>
-</div> 
+
+<%= render partial: 'group/header' %>
 
 
 
 <ul class='item-lists'>
   <div class='item-info'>
-    <h3 class='group-name'>グループメンバー</h3>        
+    <h2 class='group-name'>グループメンバー</h2>        
     <% if @group.users.exists? %> 
         <% @group.users.each do |users| %>
-          <ul class='item-lists'>
-            <%= users.user_name %>
-            <%= users.position %>
-            <%= button_to "グループから消去する", group_user_path(user_id: users.id), method: :delete  %>
+          <ul class='flex-employee-list'>
+            <div class="users-user-name">
+              <li> <%= users.user_name %>さん</li>
+            </div>
+            
+            <div class="users-contents"><li><%= users.position %></li></div>
           </ul>
         <% end %>
         <div class='member_name'>
@@ -39,16 +26,20 @@
   </div>
 
 
-  <h3 class='group-name'>社員一覧</h3> 
+  <h2 class='group-name'>社員一覧</h2> 
   <% @user.each do |user| %>
 
     <% unless GroupUser.exists?(group_id: @group.id, user_id: user.id) %>
-      <ul class='item-lists'>
-        <%= user.user_name %>
-        <%= link_to "追加", group_group_user_index_path(group_id: @group.id, user_id:user.id),method: :post %>
+      <ul class='flex-employee-list'>
+        <div class="users-user-name">
+          <li> <%= user.user_name %>さん</li>
+        </div>
+        <div class="users-contents">
+          <%= link_to "追加", group_group_user_index_path(group_id: @group.id, user_id:user.id),method: :post %>
+        </div>
       </ul>
     <% end %>
 
-    
   <% end %>
 </ul>
+
