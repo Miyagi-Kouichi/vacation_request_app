@@ -41,8 +41,8 @@
       </h2>
 
       <div class='list'>
-        <li class='link-list'><%= link_to "有給申請一覧", group_path(id: group.id) %></li>
-        <li class='link-list'><%= link_to "週休変更申請一覧", group_path(id: group.id) %></li>
+        <li class='link-list'><%= link_to "グループの有給申請一覧", group_path(id: group.id) %></li>
+        
         <% if current_user.position == "システム管理者"  %>
           <li class='link-list'><%= link_to "グループ情報の編集", edit_group_path(id: group.id) %></li>
         <% end %>
