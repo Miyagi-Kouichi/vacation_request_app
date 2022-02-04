@@ -1,4 +1,4 @@
-
+<%= render partial: "header", local: true %>
 <table class="request-table">
     <tr>
           <th class="detail-item"><%= "名前" %></th>
@@ -59,27 +59,29 @@
     </div>
 </table>
 
-
-
-<% unless WeekHCheck.exists?(user_id: current_user.id, week_holiday_change_id: @week_holiday.id) %><!-- ログインしているユーザーがチェック機能（承認・否認）を使ってなければOK -->  
-      <% if WeekHCheck.exists?(yes_no: "no", week_holiday_change_id: @week_holiday.id) %> <!-- 自分はリクエスト機能を使っていないが、既に否認（NO）されている場合の処理 -->
-            <% if @week_holiday.user_id == current_user.id %> <!-- 投稿した本人なら、編集・削除できる。 -->
-                  <%= "否認されているので、削除・編集する事ができます。" %>
-                  <td><%= link_to "編集", edit_week_holiday_change_path(@week_holiday.id) %></td>
-                  <td><%= link_to "削除", week_holiday_change_path(@week_holiday.id), method: :delete %></td> 
-            <% end %>
-      <% else %>                    <!-- 自分はまだ承認していなくて、まだ否認もされていない場合。ログインユーザーのポジションが部長か総務のいずれか -->
-            <% if current_user.position == "役員" || current_user.position == "システム管理者" %>
-                  <%# 役員と総務はグループに属していなくても承認できる。 %>
-                  <%=link_to "承認", week_holiday_change_agreement_path(@week_holiday.id), method: :post %>   
-                  <%=link_to "否認", week_holiday_change_rejected_path(@week_holiday.id), method: :post %>
-            <% elsif current_user.position.in?(['リーダー', '主任', '部長']) %>
-                        
-                  <% if (@week_holiday.user.groups.ids - current_user.groups.ids).size < @week_holiday.user.groups.ids.size %>
-                        <%# リーダーの所属しているグループidが、申請者のグループidを含んでいればOK %>
-                        <%=link_to "承認", week_holiday_change_agreement_path(@week_holiday.id), method: :post %>   
-                        <%=link_to "否認", week_holiday_change_rejected_path(@week_holiday.id), method: :post %>
+<div class="yes-no-btn">
+      <% unless WeekHCheck.exists?(user_id: current_user.id, week_holiday_change_id: @week_holiday.id) %><!-- ログインしているユーザーがチェック機能（承認・否認）を使ってなければOK -->  
+            <% if WeekHCheck.exists?(yes_no: "no", week_holiday_change_id: @week_holiday.id) %> <!-- 自分はリクエスト機能を使っていないが、既に否認（NO）されている場合の処理 -->
+                  <% if @week_holiday.user_id == current_user.id %> <!-- 投稿した本人なら、編集・削除できる。 -->
+                        <%= "否認されているので、削除・編集する事ができます。" %>
+                        <td><%= link_to "編集", edit_week_holiday_change_path(@week_holiday.id) %></td>
+                        <td><%= link_to "削除", week_holiday_change_path(@week_holiday.id), method: :delete %></td> 
+                  <% end %>
+            <% else %>   
+                  <% unless @week_holiday.user_id == current_user.id %>                 <!-- 自分はまだ承認していなくて、まだ否認もされていない場合。ログインユーザーのポジションが部長か総務のいずれか -->
+                        <% if current_user.position == "役員" || current_user.position == "システム管理者" %>
+                              <%# 役員と総務はグループに属していなくても承認できる。 %>
+                              <%=link_to "承認", week_holiday_change_agreement_path(@week_holiday.id), method: :post %>   
+                              <%=link_to "否認", week_holiday_change_rejected_path(@week_holiday.id), method: :post %>
+                        <% elsif current_user.position.in?(['リーダー', '主任', '部長']) %>
+                                    
+                              <% if (@week_holiday.user.groups.ids - current_user.groups.ids).size < @week_holiday.user.groups.ids.size %>
+                                    <%# リーダーの所属しているグループidが、申請者のグループidを含んでいればOK %>
+                                    <%=link_to "承認", week_holiday_change_agreement_path(@week_holiday.id), method: :post %>   
+                                    <%=link_to "否認", week_holiday_change_rejected_path(@week_holiday.id), method: :post %>
+                              <% end %>
+                        <% end %>
                   <% end %>
             <% end %>
       <% end %>
-<% end %>
+</div>

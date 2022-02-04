@@ -93,7 +93,7 @@
             
   
 </table>
-
+<div class="yes-no-btn">
       <% unless @h.repuested_by?(current_user) %>        <!-- ログインしているユーザーがリクエスト機能（承認・否認）を使ってなければOK -->  
             <% if @h.yes_no? %>                          <!-- 自分はリクエスト機能を使っていないが、既に否認（NO）されている場合の処理 -->
                   <% if @h.user_id == current_user.id %> <!-- 投稿した本人なら、編集・削除できる。 -->
@@ -118,4 +118,4 @@
                   <% end %>
             <% end %>
       <% end %>
-
+</div>

@@ -14,12 +14,12 @@
  *= require_self
  */
  header {
-     background-color: rgb(231, 234, 235);
+     background-color: rgb(224, 224, 224);
  }
  .top-page-header {
      padding-top: 30px;
      text-decoration: none;
-     background-color: white;
+     background-color: rgb(224, 224, 224);
      color:white;
      font-size: 15px;
      font-weight: bold;
@@ -31,7 +31,7 @@
      padding: 0 100px;
      display: flex;
      justify-content: space-between;
-     background-color: white;
+     background-color: rgb(224, 224, 224);
      flex-direction: row;
      flex-wrap: wrap;
 }
@@ -151,4 +151,12 @@ a {
      margin-bottom: 10px;
 }
 
-
+.yes-no-btn{
+     text-decoration: none;
+     min-width: 8%;
+     flex-basis: 25%;
+     color: black;
+     font-size: 20px;
+     text-align: center;
+     margin-right: 10px;
+}

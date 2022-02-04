@@ -3,12 +3,12 @@
 
     <div class="changeable-holiday">
           <% if RemainingHoliday.exists?(user_id: @user.id) %> 
-               <h3><%= @user.user_name %>さんの今年度の有給休暇は残り<%= @r.changeable_days %>日と<%= @r.changeable_time %>時間です。</h3> 
+               <h3><%= @user.user_name %>さん  残り  <%= @r.changeable_days %>日と<%= @r.changeable_time %>時間  (申請分を差し引いた取得可能時間)</h3> 
           <% end %>
      </div>
 
 
-    <div class="r-holiday">
+     <div class="r-holiday">
                <h3>今年度付与分の有給休暇</h3> 
      </div>
      <% if RemainingHoliday.exists?(user_id: @user.id) %>
@@ -48,7 +48,9 @@
           </div>
      <% end %> 
   
-
+    <div class="r-holiday">
+               <h3>申請した有給休暇</h3> 
+     </div>
 
 
 <% @holidays.each do |f| %> 

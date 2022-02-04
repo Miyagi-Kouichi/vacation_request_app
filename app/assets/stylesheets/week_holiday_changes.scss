@@ -1,3 +1,17 @@
 // Place all the styles related to the week_holiday_changes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+body {
+     background-color: #f8f8f8;
+     margin: 0px;
+}
+.yes-no-btn{
+     text-decoration: none;
+     min-width: 8%;
+     flex-basis: 25%;
+     color: black;
+     font-size: 20px;
+     text-align: center;
+     margin-right: 10px;
+}
