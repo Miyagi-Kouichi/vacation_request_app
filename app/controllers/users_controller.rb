@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  # before_action :set_holiday, only: [:show, :update,]
+  # before_action :set_user, only: [:show, ]
+  # before_action :set_week_holiday_changes, only: [:show, ]
   def index
     @users = User.all
   end
@@ -9,6 +10,8 @@ class UsersController < ApplicationController
     @r = @user.remaining_holiday  
     @holidays = @user.holidays
     @groups = Group.all
+    # @week_holidays = @user.WeekHolidayChanges.find_by(params[user_id: @user.id])
+    @week_holidays = WeekHolidayChange.all
   end
 
   def holiday
@@ -38,7 +41,11 @@ class UsersController < ApplicationController
 
   private
   # ストロングパラメータ
-  def set_holiday
-    
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def set_week_holiday_changes
+    # @change_holiday = WeekHolidayChange.find_by(user_id: @user.id)
   end
 end

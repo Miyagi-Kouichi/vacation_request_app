@@ -14,6 +14,7 @@
   </div>
   <div class="right-header">
     <div class="header-button">
+      <%= link_to "グループ一覧", group_index_path %>
       <% if current_page?(controller: 'holidays', action: 'index') %>
             <%= link_to "週休変更申請", new_week_holiday_change_path(user_id: current_user.id) %>
             <%= link_to "週休変更一覧", week_holiday_changes_path(user_id: current_user.id) %>

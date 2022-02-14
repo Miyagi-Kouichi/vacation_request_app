@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :notification, only:  [:create, :show, :destroy], shallow: true
   end
  
-  root to: "group#index"
+  root to: "holidays#index"
 
   resources :group do
     resources :group_user, only:  [:show, :create, :destroy]

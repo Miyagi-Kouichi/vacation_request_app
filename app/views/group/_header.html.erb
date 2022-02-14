@@ -2,7 +2,7 @@
      <div class="left-header">
           <div class="header-title">
                <% if current_page?(controller: 'group', action: 'index') %>
-                    <h1>トップページ</h1>
+                    <h1>グループ一覧</h1>
                <% elsif current_page?(controller: 'group', action: 'new') %>
                     <h1>グループ作成ページ</h1>
                <% elsif current_page?(controller: 'group', action: 'show') %>
@@ -16,7 +16,10 @@
      </div>
      <div class="right-header">
           <div class="header-button">
-          <%= link_to "マイページ", holidays_path %>
+               <% unless current_page?(controller: 'group', action: 'index') %>
+                    <%= link_to "グループ一覧", group_index_path %>
+               <% end %>
+               
                <% unless current_user.position == "一般社員"  %>
                     <%= link_to "社員名簿一覧", users_path %>
                     <%= link_to "有給申請一覧", users_holiday_path %>

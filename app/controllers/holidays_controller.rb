@@ -7,6 +7,7 @@ class HolidaysController < ApplicationController
      def index
      #     @holiday = Holiday.all.includes(:user)
           @holiday = current_user.holidays.all
+          @week_holidays = current_user.WeekHolidayChanges.all
      end
 
      def new
