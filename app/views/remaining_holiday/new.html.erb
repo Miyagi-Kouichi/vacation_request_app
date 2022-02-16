@@ -2,7 +2,6 @@
 
    
      <h1>・<%=@user.user_name%>さんへの有給休暇の付与</h1>
-     <%=@user.id%>
 
 <%= form_with model: @remaining_holiday, url: user_remaining_holiday_index_path, html: { method: :post }, local: true do |f| %>
      <%= render 'shared/error_messages', model: f.object %>  
