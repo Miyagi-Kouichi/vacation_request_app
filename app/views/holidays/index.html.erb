@@ -2,14 +2,22 @@
 
 <% if RemainingHoliday.exists?(user_id: current_user.id) %> 
      <div class="total_holiday">
-          <h2>今年度合計<%= @r.total_days %>日と<%= @r.total_time %>時間</h2>
-          <h2>残りの有給休暇取得可能時間<%= @r.changeable_days %>日と<%= @r.changeable_time %>時間</h2>
+          <div class="r-holiday">
+               <h3>今年度付与分の有給休暇<%= @r.total_days %>日と<%= @r.total_time %>時間(申請分を差し引く前)</h3>
+          </div>
+          <div class="changeable-holiday">
+               <% if RemainingHoliday.exists?(user_id: @user.id) %> 
+                    <h3><%= @user.user_name %>さん  残り  <%= @r.changeable_days %>日と<%= @r.changeable_time %>時間  (申請分を差し引いた取得可能時間)</h3> 
+               <% end %>
+          </div>
      </div>
 <% else %> 
-     <h2>まだ今年度の有給が付与されていません。総務に連絡をください。</h2>
+     <div class="r-holiday">
+          <h2>まだ今年度の有給が付与されていません。総務に連絡をください。</h2>
+     </div>
 <% end %>
      <div class="r-holiday">
-               <h3>有給休暇</h3> 
+               <h3>有給休暇の申請</h3> 
      </div>
 <% @holiday.each do |f| %> 
      <%= link_to holiday_path(f.id), method: :get do %>
@@ -51,7 +59,7 @@
 
 
      <div class="r-holiday">
-               <h3>週休休暇の変更</h3> 
+               <h3>週休変更の申請</h3> 
      </div>
 
 <ul class='item-contents'>

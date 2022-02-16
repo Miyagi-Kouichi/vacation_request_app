@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :groups, through: :group_users
   has_many :requests
   has_many :holidays 
-  has_one :remaining_holiday
+  has_one  :remaining_holiday
   has_many :comments
   has_many :Notifications
   has_many :WeekHolidayChanges

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get "users/week_holiday_change" => "users#week_holiday_change"
 
   resources :users do
-    resources :remaining_holiday
+    resources :remaining_holiday, only:  [:new, :create, :edit, :update], shallow: true
     resources :notification, only:  [:create, :show, :destroy], shallow: true
   end
  

@@ -26,7 +26,7 @@
   </div>
 
 
-  <h2 class='group-name'>社員一覧</h2> 
+  <h2 class='group-name'>グループ以外の社員一覧</h2> 
   <% @user.each do |user| %>
 
     <% unless GroupUser.exists?(group_id: @group.id, user_id: user.id) %>
