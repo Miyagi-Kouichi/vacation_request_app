@@ -16,17 +16,24 @@
  header {
      background-color: rgb(224, 224, 224);
  }
+
  .top-page-header {
+     width: 100%;
      padding-top: 30px;
-     text-decoration: none;
-     background-color: rgb(224, 224, 224);
-     color:white;
-     font-size: 15px;
+     font-size: 1rem;
      font-weight: bold;
      display: flex;
-     min-width: 200px;
+     /* min-width: 200px; */
      margin-bottom: 0%;
 }
+
+.header-user-name{
+     color: #3c6690;
+     padding-left: 5%;
+     padding-right: 5%;
+     /* display:block; */
+}
+
 .second-header {
      padding: 0 100px;
      display: flex;
@@ -38,13 +45,9 @@
  body {
      background-color: #f8f8f8;
      margin: 0px;
+     /* font-size: 20px; */
 }
-.header-user-name{
-     color: #3c6690;
-     margin-right: 10%;
-     padding-left: 5%;
-     padding-right: 5%;
-}
+
 .right-header{
      padding: 2.5% 0;
      display: flex;
@@ -118,6 +121,7 @@ a {
      width: 100%;
      border-collapse:separate;
      border-spacing: 0;
+     padding: 1%;
 }
 
 .request-table th:first-child{
@@ -167,4 +171,16 @@ a {
      font-size: 20px;
      text-align: center;
      margin-right: 10px;
+}
+
+/* user holiday */
+.member-name li{
+     display: inline;
+     float: left;
+     padding: 3%;
+     font-size: 20px;
+}
+.member-name h3{
+
+     font-size: 20px;
 }

@@ -1,18 +1,18 @@
 <%= render partial: "header", locals: { user: @user } %>
 
-<div class='item-info'>
-
-     <% if @users.exists? %> 
-          <% @users.each do |f| %>
-          <%# <li> %>
-               <span>・<span><%= f.user_name %>
-          <%# </li>   %>
-          <% end %>
-     <% else %>
-          <div class='menber_name'>
-          <span>グループメンバーがいません!</span>
-          </div>
-     <% end %>
+<div class='member-name'>
+  <%# <h3>てsてsてst</h3> %>
+  <% if @users.exists? %> 
+    <ul> 
+      <% @users.each do |f| %>
+        <li><%= f.user_name %></li>  
+      <% end %>
+    </ul> 
+  <% else %>
+      <div class='no_member'>
+        <h4>グループメンバーがいません!</h4>
+      </div>
+  <% end %>
 </div>
 
 <ul class='item-contents'>
@@ -42,8 +42,8 @@
                 <% if f.holiday_time_start.nil? %> 
                       <td class="detail-value"><span>時間の指定なし</span></td>
                 <% else %>
-                      <td class="detail-value"><%= "start " %><%= f.holiday_time_start.strftime('%H') %>
-                                          <%= "〜end " %><%= f.holiday_time_end.strftime( "%H" ) %></td>
+                      <td class="detail-value"><%= f.holiday_time_start.strftime('%H') %>
+                                          <%= "〜" %><%= f.holiday_time_end.strftime( "%H" ) %></td>
                 <% end %> 
                 <td class="detail-value"><%= f.acquisition_time %>時間</td>
                 <td class="detail-value"><%= f.reason %></td>
