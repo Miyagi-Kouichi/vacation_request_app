@@ -2,18 +2,19 @@ class RemainingHolidayController < ApplicationController
      before_action :authenticate_user!
 
      def new
-          @user = User.find_by(params[:user_id])
+          @user = User.find(params[:user_id])
           @remaining_holiday = RemainingHoliday.new
      end
 
      def create
-          @user = User.find_by(params[:user_id])
+          @user = User.find(params[:user_id])
           @remaining_holiday = RemainingHoliday.new(remaining_holiday_params)
           if @remaining_holiday.valid?
+              
                set_changeable_number
                set_time_limit
                @remaining_holiday.save
-               redirect_to root_path
+               redirect_to user_path(@user.id)
           else
             render action: :new
           end
@@ -22,14 +23,14 @@ class RemainingHolidayController < ApplicationController
 
 
      def edit
-
           @user = User.find(params[:id])
-          @remaining_holiday = RemainingHoliday.find_by(params[:user_id]) # DBから既存のものを取得
+          @remaining_holiday = RemainingHoliday.find_by(user_id: @user.id) # DBから既存のものを取得
      end
         
      def update
           @user = User.find(params[:id])
-          @remaining_holiday = RemainingHoliday.find_by(params[:user_id])
+          @remaining_holiday = RemainingHoliday.find_by(user_id: @user.id)
+          #  binding.pry
           if @remaining_holiday.update(remaining_holiday_params)
                set_changeable_number
                set_time_limit

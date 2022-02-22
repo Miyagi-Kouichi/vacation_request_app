@@ -10,16 +10,16 @@
                <th class="detail-item"><%= "備考" %></th>
           </tr>
           <tr>
-               <td class="detail-value"><%= f.date_field :joining_date %>
-               <td class="detail-value"><%= f.date_field :effective_period_start %>
-                                        <%= f.date_field :effective_period_end %></td>
-               <td class="detail-value"><%= "日数" %><%= f.number_field :last_year_days, step: '0.1' %>
-                                        <%= "時間" %><%= f.number_field :last_year_time %></td>
-               <td class="detail-value"><%= f.number_field :this_year_days, step: '0.1' %>
-               <td class="detail-value"><%= "日数" %><%= f.number_field :total_days, step: '0.1' %>
-                                        <%= "時間" %><%= f.number_field :total_time %></td>            
-               <td class="detail-value"><%= f.select :working_hours, ['7時間制', '8時間制',], {include_blank: '---'} %>
-               <td class="detail-value"><%= f.text_area :reason %>
+               <td class="detail-value">     <%= f.date_field :joining_date %>
+               <td class="detail-value">     <%= f.date_field :effective_period_start %>
+                                             <%= f.date_field :effective_period_end %></td>
+               <td class="detail-value">     <%= "日数" %><%= f.number_field :last_year_days, step: '0.1' %>
+                                        <br> <%= "時間" %><%= f.number_field :last_year_time %></td>
+               <td class="detail-value">     <%= f.number_field :this_year_days, step: '0.1' %>
+               <td class="detail-value">     <%= "日数" %><%= f.number_field :total_days, step: '0.1' %>
+                                   <br>      <%= "時間" %><%= f.number_field :total_time %></td>            
+               <td class="detail-value">     <%= f.select :working_hours, ['7時間制', '8時間制',], {include_blank: '---'} %>
+               <td class="detail-value">     <%= f.text_area :reason %>
           </tr>
      </table>
      <%= f.submit "送信" ,class:"send-btn"%>

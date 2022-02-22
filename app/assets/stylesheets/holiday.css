@@ -2,17 +2,7 @@
 .wrapper {
      display: flex;
 }
-.header-title {
-     /* display: flex; */
-     /* float: left; */
-     color: black;
-     font-size: 24px;
-     margin: 20px;
-}
 
-.header-button {
-     /* margin-top: 40px; */
-}
 /* .header-button a {
      text-decoration: none;
      border: 1px solid black;

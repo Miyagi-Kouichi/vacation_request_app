@@ -1,21 +1,17 @@
 <%= render partial: "header", locals: { user: @user } %>
 
-<div class='member-name'>
-  <%# <h3>てsてsてst</h3> %>
-  <% if @users.exists? %> 
-    <ul> 
-      <% @users.each do |f| %>
-        <li><%= f.user_name %></li>  
-      <% end %>
-    </ul> 
-  <% else %>
-      <div class='no_member'>
-        <h4>グループメンバーがいません!</h4>
-      </div>
-  <% end %>
-</div>
+<%# <div class='member-name'> %>
+  <%# <% if @users.exists? %> 
+      <%# <% @users.each do |f| %> 
+        <%# <li><%= f.user_name %></li>  
+      <%# <% end %> 
+  <%# <% else %> 
+      <%# <div class='no_member'> %>
+        <%# <h4>グループメンバーがいません!</h4> %>
+      <%# </div> %>
+  <%# <% end %> 
+<%# </div> %>
 
-<ul class='item-contents'>
   <div class='item-info'>   
     <% if @holidays.exists? %> 
       <% @holidays.each do |f| %>
@@ -94,4 +90,3 @@
         </div>
     <% end %>       
   </div>
-</ul>

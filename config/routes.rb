@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :remaining_holiday, only:  [:new, :create, :edit, :update], shallow: true
+    # resource :remaining_holiday, only:  [:new, :create, :edit, :update], shallow: true
     resources :notification, only:  [:create, :show, :destroy], shallow: true
   end
  
