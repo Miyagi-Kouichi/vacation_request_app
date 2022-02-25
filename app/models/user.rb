@@ -2,15 +2,15 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
          
-  has_many :group_users
+  has_many :group_users, dependent: :destroy
   has_many :groups, through: :group_users
-  has_many :requests
-  has_many :holidays 
-  has_one  :remaining_holiday
-  has_many :comments
-  has_many :Notifications
-  has_many :WeekHolidayChanges
-  has_many :week_h_checks
+  has_many :requests, dependent: :destroy
+  has_many :holidays , dependent: :destroy
+  has_one  :remaining_holiday, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :Notifications, dependent: :destroy
+  has_many :WeekHolidayChanges, dependent: :destroy
+  has_many :week_h_checks, dependent: :destroy
   # has_many :groups, through: :Notifications
   # PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
   

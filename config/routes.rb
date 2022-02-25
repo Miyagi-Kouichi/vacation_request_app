@@ -1,14 +1,24 @@
 Rails.application.routes.draw do
-  # resources :week_h_checks
+
   # get 'users/index'
-  devise_for :users
+
+  devise_for :users, :controllers => {
+    # :confirmations => 'users/confirmations',
+    :registrations => 'users/registrations',
+    # :sessions => 'users/sessions',
+    # :passwords => 'users/passwords'
+  }
+
+  #  devise_for :users, :controllers => {
+  #   :registrations => 'users/registrations',
+  #   :sessions => 'users/sessions'   
+  # } 
 
   get "users/holiday" => "users#holiday"
   get "users/week_holiday_change" => "users#week_holiday_change"
 
   resources :users do
     resources :remaining_holiday, only:  [:new, :create, :edit, :update], shallow: true
-    # resource :remaining_holiday, only:  [:new, :create, :edit, :update], shallow: true
     resources :notification, only:  [:create, :show, :destroy], shallow: true
   end
  
@@ -16,11 +26,7 @@ Rails.application.routes.draw do
 
   resources :group do
     resources :group_user, only:  [:show, :create, :destroy]
-    # get 'show', to: 'gorup_user#show'
-    # post 'join', to: 'gorup#join'
-    # delete 'leave', to: 'gorup#leave'
   end
-  # get "group/group_user" => "group#group_user"
 
   resources :holidays do
     resources :comments, only: [:create] 

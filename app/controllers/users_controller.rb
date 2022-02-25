@@ -39,13 +39,29 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(params[:id]) 
+  end
+
+  def update
+    @user = User.find(params[:id]) 
+    @user.update(user_params) 
+    redirect_to :root
+  end    
+
+  def destroy
+    @user = User.find(params[:id]) 
+    @user.destroy
+    redirect_to :root
+  end
+
   private
   # ストロングパラメータ
   def set_user
     @user = User.find(params[:id])
   end
 
-  def set_week_holiday_changes
-    # @change_holiday = WeekHolidayChange.find_by(user_id: @user.id)
+  def user_params
+    params.require(:user).permit(:email, :encrypted_password, :user_name, :position)
   end
 end
