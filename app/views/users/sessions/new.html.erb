@@ -1,8 +1,8 @@
 <%# <%= render "shared/header"%>
 <%= form_with model: @user, url: user_session_path, class: 'session-main', local: true do |f| %>
-  
+  <div class='form-wrap'>  
   <%= render "devise/shared/error_messages", resource: resource %>
-  <div class='form-wrap'>
+
   
     <div class="header">
       <div class="form-header-text">
@@ -28,8 +28,16 @@
       <div class='register-btn'>
         <%= f.submit "ログイン" ,class:"register-red-btn" %>
       </div>
+
+
     </div>
   </div>
 <% end %>
+
+      <div class='password-btn'>
+          <label class="form-text">パスワードを忘れた場合</label>
+          <%= button_to "パスワードを忘れた場合", new_user_password_path, method: :get  %>
+      </div>
+     
 
 

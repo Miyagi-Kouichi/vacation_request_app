@@ -12,8 +12,9 @@ class User < ApplicationRecord
   has_many :WeekHolidayChanges, dependent: :destroy
   has_many :week_h_checks, dependent: :destroy
   # has_many :groups, through: :Notifications
+
   # PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
-  
+
   # with_options presence: true, format: { with: PASSWORD_REGEX, message: 'には英字と数字の両方を含めて設定してください' }, length: { minimum: 6 },
   #     confirmation: true do
   #   validates :password
@@ -24,5 +25,6 @@ class User < ApplicationRecord
     validates :email
     validates :user_name
     validates :position
+    # validates :encrypted_password
   end
 end

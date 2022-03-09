@@ -46,6 +46,8 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id]) 
     @user.update(user_params) 
+    # @copy_user = 
+    # user_params
     redirect_to :root
   end    
 
@@ -62,6 +64,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :encrypted_password, :user_name, :position)
+    params.require(:user).permit(:email, :user_name, :position)
+    # @user.user_name = 
   end
 end
