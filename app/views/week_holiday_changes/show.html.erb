@@ -14,7 +14,7 @@
                <td class="detail-value"><%= @week_holiday.user.user_name %></td>
                <td class="detail-value"><%= @week_holiday.created_at.strftime('%Y/%m/%d') %></td>
                <td class="detail-value"><%= "" %><%= @week_holiday.original_leave.strftime('%Y/%m/%d') %>
-               <td class="detail-value"><%= @week_holiday.original_leave.strftime('%Y/%m/%d') %></td>
+               <td class="detail-value"><%= @week_holiday.changed_leave.strftime('%Y/%m/%d') %></td>
           
 
                <% if WeekHCheck.exists?(week_holiday_change_id: @week_holiday.id) %>

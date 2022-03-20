@@ -1,7 +1,7 @@
 class HolidaysController < ApplicationController
      before_action :authenticate_user!
      before_action :set_current_user, only: [:index, :new, :edit, :show, :update,]
-     before_action :set_r_holiday, only: [:index, :new, :create, :edit, :show, :update,]
+     before_action :set_r_holiday, only: [:index, :new, :create, :edit, :show, :update, :cancel_new, :cancel_create]
      before_action :set_group, only: [:index, :new, :create]
 
      def index
@@ -23,6 +23,22 @@ class HolidaysController < ApplicationController
           else
                render action: :new
           end
+     end
+
+     def cancel_create
+          @holiday = Holiday.new(holiday_params)
+          if @holiday.valid?
+               holiday_cancel_calculation
+               @holiday.save
+               redirect_to root_path
+          else
+               render action: :new
+          end
+     end
+
+     def cancel_new
+          @user = current_user
+          @holiday = Holiday.new
      end
 
      def show
@@ -52,6 +68,9 @@ class HolidaysController < ApplicationController
           @holiday.destroy
           redirect_to root_path
      end
+
+     
+
        
 
           
@@ -60,7 +79,7 @@ class HolidaysController < ApplicationController
      def holiday_params
           params.require(:holiday).permit(:application_date, :acquisition_days, :holiday_time_start, :holiday_time_end, :acquisition_time, :reason).merge(user_id: current_user.id)
      end 
-
+ 
      def set_current_user
           @user = current_user
      end
@@ -98,6 +117,20 @@ class HolidaysController < ApplicationController
                @r.changeable_days -= 0.5
           elsif @holiday.acquisition_days == "1日" && @r.changeable_days >= 1
                @r.changeable_days -= 1
+          end
+          @holiday.time_record = @r.changeable_time
+          @holiday.day_record = @r.changeable_days
+          @r.save
+     end
+
+     def holiday_cancel_calculation
+          if @holiday.acquisition_days == "時間休キャンセル"
+               @r.changeable_time += @holiday.acquisition_time.to_i
+               @r.time_limit += @holiday.acquisition_time.to_i
+          elsif @holiday.acquisition_days == "半休キャンセル"
+               @r.changeable_days += 0.5
+          elsif @holiday.acquisition_days == "1日キャンセル" 
+               @r.changeable_days += 1
           end
           @holiday.time_record = @r.changeable_time
           @holiday.day_record = @r.changeable_days

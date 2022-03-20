@@ -5,10 +5,12 @@
         <h2>マイページ（トップページ）</h2>
       <% elsif current_page?(controller: 'holidays', action: 'new') %>
         <h2>有給申請ページ</h2>
-      <% elsif current_page?(controller: 'holidays', action: 'show') %>
-        <h2>有給詳細ページ</h2>
+      <% elsif current_page?(controller: 'holidays', action: 'cancel_new') %>
+        <h2>キャンセル申請ページ</h2>
       <% elsif current_page?(controller: 'holidays', action: 'edit') %>
         <h2>有給申請の編集ページ</h2>
+      <% elsif current_page?(controller: 'holidays', action: 'show') %>
+        <h2>有給詳細ページ</h2>
       <% end %>
     </div>
   </div>

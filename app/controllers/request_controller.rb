@@ -65,6 +65,16 @@ class RequestController < ApplicationController
                @r.changeable_days += 0.5
           elsif @holiday.acquisition_days == "1日" && @r.changeable_days >= 1
                @r.changeable_days += 1
+
+            # キャンセル申請が却下された場合の処理
+          #   キャンセル申請した時点で、取得可能時間が元に戻されているため、さらに却下されると引かれることになる。
+          elsif @holiday.acquisition_days == "時間休キャンセル"
+               @r.changeable_time -= @holiday.acquisition_time.to_i
+               @r.time_limit -= @holiday.acquisition_time.to_i
+          elsif @holiday.acquisition_days == "半休キャンセル"
+               @r.changeable_days -= 0.5
+          elsif @holiday.acquisition_days == "1日キャンセル"
+               @r.changeable_days -= 1
           end
           @holiday.time_record = @r.changeable_time
           @holiday.day_record = @r.changeable_days

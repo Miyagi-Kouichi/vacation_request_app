@@ -1,19 +1,8 @@
 Rails.application.routes.draw do
 
-  # get 'users/index'
-
   devise_for :users, :controllers => {
-    # :confirmations => 'users/confirmations',
-    # :registrations => 'users/registrations',
-    
-    # :sessions => 'users/sessions',
     :passwords => 'users/passwords'
   }
-  # resources :password_resets,     only: [:new, :create, :edit, :update]
-  #  devise_for :users, :controllers => {
-  #   :registrations => 'users/registrations',
-  #   :sessions => 'users/sessions'   
-  # } 
 
   get "users/holiday" => "users#holiday"
   get "users/week_holiday_change" => "users#week_holiday_change"
@@ -29,11 +18,15 @@ Rails.application.routes.draw do
     resources :group_user, only:  [:show, :create, :destroy]
   end
 
+  get "holidays/cancel_new" => "holidays#cancel_new"
+  post "holidays/cancel_create" => "holidays#cancel_create"
+
   resources :holidays do
     resources :comments, only: [:create] 
     post 'agreement', to: 'request#agreement'
     post 'rejected', to: 'request#rejected'
   end
+  
 
   resources :week_holiday_changes do
     post 'agreement', to: 'week_h_checks#agreement'
