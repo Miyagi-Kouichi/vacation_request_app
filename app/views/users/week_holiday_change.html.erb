@@ -20,7 +20,7 @@
                                    <td class="detail-value"><%= f.user.user_name %></td>
                                    <td class="detail-value"><%= f.created_at.strftime('%Y/%m/%d') %></td>
                                    <td class="detail-value"><%= "" %><%= f.original_leave.strftime('%Y/%m/%d') %>
-                                   <td class="detail-value"><%= f.original_leave.strftime('%Y/%m/%d') %></td>
+                                   <td class="detail-value"><%= f.changed_leave.strftime('%Y/%m/%d') %></td>
                               
 
                                    <% if WeekHCheck.exists?(week_holiday_change_id: f.id) %>
