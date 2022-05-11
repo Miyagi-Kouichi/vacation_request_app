@@ -2,6 +2,7 @@
      <%= render partial: "header", locals: { user: @user } %>
 
      <%= form_with model: @holiday ,url:holidays_cancel_create_path do |f| %>
+          <%= render 'shared/error_messages', model: f.object %> 
           <% if RemainingHoliday.exists?(user_id: current_user.id) %>
                <table class="request-table">
                     <tr>
@@ -17,7 +18,7 @@
                     <td class="detail-value"><%= f.select :acquisition_days,  ['時間休キャンセル', '半休キャンセル', '1日キャンセル'],
                     {include_blank: '---'} ,id:"holiday-acquisition-days"%></td>
                     <td class="detail-value"><%= f.number_field :acquisition_time %></td>
-                    <td class="detail-value"><%= f.text_area :reason, placeholder:"有給のキャンセル申請" %> </td>
+                    <td class="detail-value"><%= f.text_area :reason, placeholder:"" %> </td>
                     </tr>
                </table>
                <%= f.submit "SEND" ,class:"send-btn"%>

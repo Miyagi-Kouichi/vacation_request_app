@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :group_user, only:  [:show, :create, :destroy]
   end
 
+  get "group/group_change_holidays_show" => "group#group_change_holidays_show"
   get "holidays/cancel_new" => "holidays#cancel_new"
   post "holidays/cancel_create" => "holidays#cancel_create"
 
