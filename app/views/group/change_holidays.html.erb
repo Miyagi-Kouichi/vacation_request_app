@@ -7,9 +7,7 @@
      </div>
      <div class="right-header">
           <div class="header-button">
-               <% unless current_page?(controller: 'group', action: 'index') %>
-                    <h1>グループの週休変更申請一覧</h1>
-               <% end %>
+     
                
                <% unless current_user.position == "一般社員"  %>
                     <%= link_to "従業員一覧", users_path %>

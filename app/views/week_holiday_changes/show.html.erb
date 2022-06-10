@@ -60,11 +60,12 @@
 </table>
 
 <div class="yes-no-btn">
+      <%# <% unless @h.repuested_by?(current_user) %>  
       <% unless WeekHCheck.exists?(user_id: current_user.id, week_holiday_change_id: @week_holiday.id) %><!-- ログインしているユーザーがチェック機能（承認・否認）を使ってなければOK -->  
             <% if WeekHCheck.exists?(yes_no: "no", week_holiday_change_id: @week_holiday.id) %> <!-- 自分はリクエスト機能を使っていないが、既に否認（NO）されている場合の処理 -->
                   <% if @week_holiday.user_id == current_user.id %> <!-- 投稿した本人なら、編集・削除できる。 -->
                         <%= "否認されているので、削除・編集する事ができます。" %>
-                        <td><%= link_to "編集", edit_week_holiday_change_path(@week_holiday.id) %></td>
+                        <td><%= link_to "編集して再申請", edit_week_holiday_change_path(@week_holiday.id) %></td>
                         <td><%= link_to "削除", week_holiday_change_path(@week_holiday.id), method: :delete %></td> 
                   <% end %>
             <% else %>   
