@@ -1,6 +1,7 @@
 class GroupController < ApplicationController
      before_action :authenticate_user!
-     before_action :set_group, only: [:edit, :show, :update, :destroy, :group_change_holiday_show]
+     before_action :set_group, only: [:edit, :show, :update, :destroy]
+     # , :change_holidays_show
 
      def index
           @groups = Group.all
@@ -27,7 +28,8 @@ class GroupController < ApplicationController
           @group_holidays = Holiday.where(user_id: member_id).order(created_at: :desc)
      end
 
-     def  group_change_holiday_show
+     def change_holidays
+          @group = Group.find(params[:group_id])
           member_id = @group.users.ids
           @group_change_holidays = WeekHolidayChange.where(user_id: member_id).order(created_at: :desc)
      end

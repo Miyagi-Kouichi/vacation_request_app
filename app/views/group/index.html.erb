@@ -8,6 +8,7 @@
       <h2 class='item-name'>
         <% if @user.position.in?(['リーダー', '主任', '部長', '役員', 'システム管理者']) %> <!-- ログインユーザーのポジションが三つの中に含まれているかどうか -->
           <% if group.users.exists? %>                         <!-- グループにユーザーが存在するかどうか -->
+            
             <% if Holiday.where(user_id: group.users.ids).exists? %><!-- グループのユーザーの申請した有給があるかどうか -->
               <% @group_holidays = Holiday.where(user_id: group.users.ids) %>
                 <% i = 0 %>
@@ -35,6 +36,35 @@
             <% else %>
               <%= "申請はまだありません" %>
             <% end %>
+            <div class='week_holiday_notice'>
+              <% if WeekHolidayChange.where(user_id: group.users.ids).exists? %><!-- グループのユーザーの申請した有給があるかどうか -->
+                <% @group_week_h_changes = WeekHolidayChange.where(user_id: group.users.ids) %>
+                  <% i = 0 %>
+                  <% @group_week_h_changes.each do |week_holiday| %><!-- グループの週休申請を一つずつ精査していく -->
+                    <% unless WeekHCheck.where(week_holiday_change_id: week_holiday.id, yes_no: "no").exists? %>  <!-- 既に否認されているものでなければOK -->
+                      <% unless WeekHCheck.where(week_holiday_change_id: week_holiday.id, user_id: @user.id).exists? || week_holiday.user == current_user%>
+                        <!-- ↑既にログインユーザーが承認していない。もしくは、申請したのがログインユーザーでなければOK -->
+                        <% if current_user.position == "システム管理者" %><!-- ログインユーザーのpositionがシステム管理者の場合 -->
+                          <% i += 1 %>
+                        <% else %>
+                          <% if  current_user.groups.present? %><!-- ログインユーザーが現在グループに所属している場合 --> 
+                            <% if current_user.group_ids.include?(group.id) %>
+                              <% i += 1 %>
+                            <% end %>
+                          <% end  %>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                  <% if i > 0 %>
+                    <%= "🔔" %><%= i %><%= "件 未承認の週休変更申請があります" %>
+                  <% else %>
+                    <%= "承認待ちの週休変更申請はありません" %>
+                  <% end %>
+              <% else %>
+                <%= "週休変更申請はまだありません" %>
+              <% end %>
+            </div>
           <% end %>
         <% end %>
       </h2>
@@ -42,7 +72,7 @@
 
       <div class='list'>
         <li class='link-list'><%= link_to "グループの有給申請一覧", group_path(id: group.id) %></li>
-        <%# <li class='link-list'><%= link_to "グループの週休変更申請一覧", group_group_change_holidays_show_path(id: group.id) %></li>
+        <li class='link-list'><%= link_to "グループの週休変更申請一覧", group_change_holidays_path(group_id: group.id) %></li>
         
         <% if current_user.position == "システム管理者"  %>
           <li class='link-list'><%= link_to "グループ情報の編集", edit_group_path(id: group.id) %></li>

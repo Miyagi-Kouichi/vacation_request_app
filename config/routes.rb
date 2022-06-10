@@ -15,10 +15,11 @@ Rails.application.routes.draw do
   root to: "holidays#index"
 
   resources :group do
+    get 'change_holidays', to:'group#change_holidays'
     resources :group_user, only:  [:show, :create, :destroy]
   end
 
-  get "group/group_change_holidays_show" => "group#group_change_holidays_show"
+  # get "group/change_holidays_show" => "group#change_holidays_show"
   get "holidays/cancel_new" => "holidays#cancel_new"
   post "holidays/cancel_create" => "holidays#cancel_create"
 
