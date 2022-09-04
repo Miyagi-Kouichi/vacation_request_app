@@ -5,11 +5,16 @@
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
-    "@rails/webpacker": "4.3.0",
+    "@rails/webpacker": "5.4.3",
+    "node-sass": "^7.0.1",
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",
   "devDependencies": {
     "webpack-dev-server": "^3.11.2"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/Drbeer-miyako/vacation_request_app.git",
+  "author": "Drbeer-miyako <80018151+Drbeer-miyako@users.noreply.github.com>",
+  "license": "MIT"
 }

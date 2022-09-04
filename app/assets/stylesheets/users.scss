@@ -1,3 +1,115 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.registration-main {
+     width: 100%;
+     min-width: 800px;
+     height: 100%;
+     background-color: #f5f5f5;
+     display: flex;
+     justify-content: center;
+     // font-size: 20rem;
+}
+.session-main {
+     width: 100%;
+     min-width: 800px;
+     height: 100%;
+     background-color: #f5f5f5;
+     display: flex;
+     justify-content: center;
+}
+
+.form-wrap {
+     width: 100%;
+     background-color: white;
+     padding-bottom: 70px;
+}
+
+.header {
+     width: 100%;
+     height: 150px;
+     text-align: center;
+     font-size: 22px;
+}
+
+.form-header-text {
+     line-height: 100px;
+     border-bottom: 1px solid #f5f5f5;
+     font-weight: bold;
+}
+
+
+.form-group {
+     width: 50%;
+     display: flex;
+     flex-direction: column;
+     margin: 0 auto;
+     padding-top: 20px;
+     padding-bottom: 40px;
+}
+
+.form-text-wrap {
+     width: 100%;
+     height: 20%;
+     margin-bottom: 30px;
+     // padding-top: 10px;
+}
+
+.form-text {
+     font-size: 2rem;
+     font-weight: bold;
+     padding: 5px;
+}
+
+.password-btn {
+     font-size: 2rem;
+     font-weight: bold;
+     padding: 20px;
+     margin: 0 auto;
+}
+
+.password-wrap {
+     // display: flex
+     text-align: center;
+}
+
+.input-default {
+     width: 100%;
+     margin-top: 5px;
+     height: 48px;
+     padding: 10px 16px 8px;
+     border-radius: 10px;
+     border: 1px solid #ccc;
+     background: #fff;
+     font-size: 30px;
+     resize: none;
+}
+
+.info-text {
+     color: #888;
+     font-size: 15px;
+     margin-top: 3px;
+}
+
+.select-box {
+     height: 30px;
+     width: 100%;
+     background-color: #f5f5f5;
+     padding-left: 20px;
+}
+
+.register-btn {
+     width: 50%;
+     margin: 0 auto;
+}
+
+.register-red-btn {
+     width: 100%;
+     background: #ea352d;
+     border: 1px solid #ea352d;
+     color: #fff;
+     line-height: 48px;
+     font-size: 14px;
+     cursor: pointer;
+     border-radius:30px;
+}

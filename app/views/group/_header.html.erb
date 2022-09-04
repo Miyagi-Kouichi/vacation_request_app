@@ -1,27 +1,29 @@
-<div class="holiday-header">
+<div class="second-header">
      <div class="left-header">
           <div class="header-title">
                <% if current_page?(controller: 'group', action: 'index') %>
-                    <h2>トップページ</h2>
+                    <h1>グループ一覧</h1>
                <% elsif current_page?(controller: 'group', action: 'new') %>
-                    <h2>グループ作成ページ</h2>
+                    <h1>グループ作成ページ</h1>
                <% elsif current_page?(controller: 'group', action: 'show') %>
-                    <h2>グループの申請一覧</h2>
+                    <h1>グループの有給休暇申請一覧</h1>
                <% elsif current_page?(controller: 'group', action: 'edit') %>
-                    <h2>グループ情報の編集</h2>
+                    <h1>グループ情報の編集</h1>
+               <% elsif current_page?(controller: 'group_user', action: 'show') %>
+                    <h1>グループメンバーの追加</h1>
                <% end %>
           </div>
      </div>
      <div class="right-header">
           <div class="header-button">
-          <%= link_to "マイページ", holidays_path %>
-               <% if current_page?(controller: 'group', action: 'index') %>
-
-               <% else %>
-                    <%= link_to "トップページ", root_path %>
+               <% unless current_page?(controller: 'group', action: 'index') %>
+                    <%= link_to "グループ一覧", group_index_path %>
                <% end %>
+               
                <% unless current_user.position == "一般社員"  %>
-                    <%= link_to "社員名簿一覧", users_path %>
+                    <%= link_to "従業員一覧", users_path %>
+                    <%= link_to "有給申請一覧", users_holiday_path %>
+                    <%= link_to "週休休暇一覧", users_week_holiday_change_path %>
                <% end %>
                <% if current_user.position == "システム管理者"  %>
                     

@@ -2,8 +2,9 @@ class WeekHolidayChangesController < ApplicationController
      before_action :authenticate_user!
 
      def index
-          @week_holidays = current_user.WeekHolidayChanges.all
+          @week_holidays = WeekHolidayChange.all
      end
+
      def new
           @week_holiday = WeekHolidayChange.new
      end

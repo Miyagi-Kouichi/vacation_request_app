@@ -1,0 +1,31 @@
+<div class="container">
+     <%= render partial: "header", locals: { user: @user } %>
+
+     <%= form_with model: @holiday ,url:holidays_cancel_create_path do |f| %>
+          <%= render 'shared/error_messages', model: f.object %> 
+          <% if RemainingHoliday.exists?(user_id: current_user.id) %>
+               <table class="request-table">
+                    <tr>
+                    <th class="detail-item"><%= "申請日" %></th>
+                    <th class="detail-item"><%= "キャンセル日(必須)" %></th>
+                    <th class="detail-item"><%= "有給のタイプ(必須)" %></th>
+                    <th class="detail-item"><%= "キャンセル時間" %></th>
+                    <th class="detail-item"><%= "事由(必須)" %></th>
+                    </tr>
+                    <tr>
+                    <td class="detail-value"><%= Date.today %></td>
+                    <td class="detail-value"><%= "" %><%= f.date_field :application_date %>
+                    <td class="detail-value"><%= f.select :acquisition_days,  ['時間休キャンセル', '半休キャンセル', '1日キャンセル'],
+                    {include_blank: '---'} ,id:"holiday-acquisition-days"%></td>
+                    <td class="detail-value"><%= f.number_field :acquisition_time %></td>
+                    <td class="detail-value"><%= f.text_area :reason, placeholder:"" %> </td>
+                    </tr>
+               </table>
+               <%= f.submit "SEND" ,class:"send-btn"%>
+          <% else %>
+               <h3 class="remaining_holiday"><%= "まだ今年度の有給が記入されていません" %></h3>
+          <% end %>
+     <% end %>
+
+</div>
+

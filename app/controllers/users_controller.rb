@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  # before_action :set_holiday, only: [:show, :update,]
+  # before_action :set_user, only: [:show, ]
+  # before_action :set_week_holiday_changes, only: [:show, ]
   def index
     @users = User.all
   end
@@ -9,16 +10,18 @@ class UsersController < ApplicationController
     @r = @user.remaining_holiday  
     @holidays = @user.holidays
     @groups = Group.all
+    # @week_holidays = @user.WeekHolidayChanges.find_by(params[user_id: @user.id])
+    @week_holidays = WeekHolidayChange.all
   end
 
   def holiday
     @users = User.all
-    @holidays = Holiday.all
+    @holidays = Holiday.all.order(created_at: :desc)
   end
 
   def week_holiday_change
     @users = User.all
-    @changes = WeekHolidayChange.all
+    @changes = WeekHolidayChange.all.order(created_at: :desc)
   end
 
 
@@ -36,9 +39,32 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(params[:id]) 
+  end
+
+  def update
+    @user = User.find(params[:id]) 
+    @user.update(user_params) 
+    # @copy_user = 
+    # user_params
+    redirect_to :root
+  end    
+
+  def destroy
+    @user = User.find(params[:id]) 
+    @user.destroy
+    redirect_to :root
+  end
+
   private
   # ストロングパラメータ
-  def set_holiday
-    
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:email, :user_name, :position)
+    # @user.user_name = 
   end
 end

@@ -1,27 +1,34 @@
 Rails.application.routes.draw do
-  # resources :week_h_checks
-  # get 'users/index'
-  devise_for :users
+
+  devise_for :users, :controllers => {
+    :passwords => 'users/passwords'
+  }
 
   get "users/holiday" => "users#holiday"
   get "users/week_holiday_change" => "users#week_holiday_change"
 
   resources :users do
-    resources :remaining_holiday
+    resources :remaining_holiday, only:  [:new, :create, :edit, :update], shallow: true
     resources :notification, only:  [:create, :show, :destroy], shallow: true
   end
  
-  root to: "group#index"
+  root to: "holidays#index"
 
   resources :group do
-    resources :group_user, only:  [:create, :show, :destroy], shallow: true
+    get 'change_holidays', to:'group#change_holidays'
+    resources :group_user, only:  [:show, :create, :destroy]
   end
+
+  # get "group/change_holidays_show" => "group#change_holidays_show"
+  get "holidays/cancel_new" => "holidays#cancel_new"
+  post "holidays/cancel_create" => "holidays#cancel_create"
 
   resources :holidays do
     resources :comments, only: [:create] 
     post 'agreement', to: 'request#agreement'
     post 'rejected', to: 'request#rejected'
   end
+  
 
   resources :week_holiday_changes do
     post 'agreement', to: 'week_h_checks#agreement'

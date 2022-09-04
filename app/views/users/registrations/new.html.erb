@@ -14,22 +14,23 @@
     <div class="form-group">
       <div class='form-text-wrap'>
         <label class="form-text">名前</label>
-      <%= f.text_area :user_name, class:"input-default", id:"user_name", placeholder:"例) 大宮太郎", maxlength:"20" %>
+        <%= f.text_area :user_name, class:"input-default", id:"user_name", maxlength:"20" %>
       </div>
 
       <div class='form-text-wrap'>
         <label class="form-text">メールアドレス</label>
+        <%= f.email_field :email, class:"input-default", id:"email", placeholder:"会社用のメールアドレス", autofocus: true %>
       </div>
-      <%= f.email_field :email, class:"input-default", id:"email", placeholder:"会社用のメールアドレスを入", autofocus: true %>
+      
 
       <div class='form-text-wrap'>
         <label class="form-text">パスワード</label>
-        <%# <span class="indispensable">必須</span> %>
+        <%= f.password_field :password, class:"input-default", id:"password", placeholder:"6文字以上の半角英数字" %>
       </div>
-      <%= f.password_field :password, class:"input-default", id:"password", placeholder:"6文字以上の半角英数字" %>
+      
 
       <div class='form-text-wrap'>
-        <%= f.label :position %>
+        <label class="form-text">役職</label>
         <%= f.select :position, ['一般社員', 'リーダー', '主任', '部長', '役員', 'システム管理者'], {include_blank: '---'} %>
       </div>
     

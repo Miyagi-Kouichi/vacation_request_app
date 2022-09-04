@@ -1,21 +1,6 @@
 <%= render partial: "header", locals: { user: @user } %>
 
-<div class='item-info'>
 
-     <% if @users.exists? %> 
-          <% @users.each do |f| %>
-          <%# <li> %>
-               <span>・<span><%= f.user_name %>
-          <%# </li>   %>
-          <% end %>
-     <% else %>
-          <div class='menber_name'>
-          <span>グループメンバーがいません!</span>
-          </div>
-     <% end %>
-</div>
-
-<ul class='item-contents'>
   <div class='item-info'>   
     <% if @holidays.exists? %> 
       <% @holidays.each do |f| %>
@@ -42,8 +27,8 @@
                 <% if f.holiday_time_start.nil? %> 
                       <td class="detail-value"><span>時間の指定なし</span></td>
                 <% else %>
-                      <td class="detail-value"><%= "start " %><%= f.holiday_time_start.strftime('%H') %>
-                                          <%= "〜end " %><%= f.holiday_time_end.strftime( "%H" ) %></td>
+                      <td class="detail-value"><%= f.holiday_time_start.strftime('%H') %>
+                                          <%= "〜" %><%= f.holiday_time_end.strftime( "%H" ) %></td>
                 <% end %> 
                 <td class="detail-value"><%= f.acquisition_time %>時間</td>
                 <td class="detail-value"><%= f.reason %></td>
@@ -68,8 +53,8 @@
                         <% else %>
                               <td class="detail-value"><span>--</span></td>
                         <% end %>         
-                        <% if Request.exists?(holiday_id: f.id, position: "総務") %>
-                            <% request = Request.find_by(holiday_id: f.id, position: "総務") %>
+                        <% if Request.exists?(holiday_id: f.id, position: "システム管理者") %>
+                            <% request = Request.find_by(holiday_id: f.id, position: "システム管理者") %>
                             <% if request.yes_no == "yes" %>
                               <td class="detail-value"><span>✅</span><%= request.user.user_name %></td>
                             <% elsif request.yes_no == "no" %>
@@ -94,4 +79,3 @@
         </div>
     <% end %>       
   </div>
-</ul>

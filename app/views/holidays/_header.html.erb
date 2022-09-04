@@ -1,30 +1,29 @@
-<div class="holiday-header">
+<div class="second-header">
   <div class="left-header">
     <div class="header-title">
       <% if current_page?(controller: 'holidays', action: 'index') %>
-        <h2>マイページ</h2>
+        <h2>マイページ（トップページ）</h2>
       <% elsif current_page?(controller: 'holidays', action: 'new') %>
         <h2>有給申請ページ</h2>
-      <% elsif current_page?(controller: 'holidays', action: 'show') %>
-        <h2>有給詳細ページ</h2>
+      <% elsif current_page?(controller: 'holidays', action: 'cancel_new') %>
+        <h2>キャンセル申請ページ</h2>
       <% elsif current_page?(controller: 'holidays', action: 'edit') %>
         <h2>有給申請の編集ページ</h2>
+      <% elsif current_page?(controller: 'holidays', action: 'show') %>
+        <h2>有給詳細ページ</h2>
       <% end %>
     </div>
   </div>
   <div class="right-header">
     <div class="header-button">
-      <% if current_page?(controller: 'holidays', action: 'index') %>
-            <%= link_to "週休変更申請", new_week_holiday_change_path %>
-            <%= link_to "週休変更一覧", week_holiday_changes_path %>
-      <% end %>
-      <%= link_to "有給休暇の申請", new_holiday_path %>
-      <% unless current_page?(controller: 'holidays', action: 'index') %>
-        <%= link_to "マイページ", holidays_path %>
-      <% end %>
-      <%= link_to "トップページ", root_path %>
+        <%= link_to "グループ一覧", group_index_path %>
+        <%= link_to "有給申請一覧", users_holiday_path %>
+        <%= link_to "週休変更一覧", week_holiday_changes_path %>
+        <%= link_to "週休変更申請", new_week_holiday_change_path %>
+        <%= link_to "有給休暇の申請", new_holiday_path %>
+        
       <% if current_user.position == "システム管理者"  %>
-          <%= link_to "管理画面", users_path %>
+          <%= link_to "従業員一覧", users_path %>
       <% end %>
     </div>
   </div>

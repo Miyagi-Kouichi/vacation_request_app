@@ -1,9 +1,11 @@
 class GroupController < ApplicationController
      before_action :authenticate_user!
      before_action :set_group, only: [:edit, :show, :update, :destroy]
+     # , :change_holidays_show
 
      def index
-          @groups = Group.order('created_at')
+          @groups = Group.all
+          # .order(created_at: :desc)
           @user = User.find_by(id: current_user.id)
           @my_groups = GroupUser.where(user_id: current_user.id)
      end
@@ -23,7 +25,49 @@ class GroupController < ApplicationController
 
      def show
           member_id = @group.users.ids
-          @group_holidays = Holiday.where(user_id: member_id)
+          @group_holidays = Holiday.where(user_id: member_id).order(created_at: :desc)
+     end
+
+     def change_holidays
+          @group = Group.find(params[:group_id])
+          member_id = @group.users.ids
+          @group_change_holidays = WeekHolidayChange.where(user_id: member_id).order(created_at: :desc)
+     end
+
+     def edit
+          @group = Group.find(params[:id])
+     end
+          
+     def update
+          @group = Group.find(params[:id])
+          if @group.update(group_params)
+               redirect_to root_path
+          else
+               render :edit
+          end
+     end  
+
+     def group_user
+          @group = Group.find(params[:group_id])
+          @user = User.all
+     end
+
+     def group_join 
+          @group = Group.find(params[:group_id]) 
+          @user = User.find(params[:user_id]) 
+          @group.users << @user
+          if @group.save
+               redirect_to group_user_path(group_id: @group.id, id: @group.id)
+               # 将来的には、JavaScriptで非同期通信にしたい
+          else
+               render :show
+          end
+     end
+
+     def destroy
+          @group = Group.find(params[:id])
+          @group.destroy
+          redirect_to root_path
      end
 
 

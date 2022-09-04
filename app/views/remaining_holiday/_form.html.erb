@@ -1,29 +1,26 @@
-<%= form_with(model: @remaining_holiday, url: user_remaining_holiday_index_path, local: true) do |f| %>
-   <%= render 'shared/error_messages', model: f.object %>  
-     <h1>・<%=@user.user_name%>さんへの有給休暇の付与</h1>
-     <p></p>
+<div class=container4>
      <table class="request-table">
           <tr>
                <th class="detail-item"><%= "入社年月日" %></th>
                <th class="detail-item"><%= "有効期間" %></th>
-               <th class="detail-item"><%= "昨年度繰越分" %></th>
-               <th class="detail-item"><%= "今年度付与分・日数" %></th>
-               <th class="detail-item"><%= "合計・日数" %></th>
-               <th class="detail-item"><%= "勤務時間の属性" %></th>
+               <th class="detail-item"><%= "昨年度繰越分(必)" %></th>
+               <th class="detail-item"><%= "今年度付与分・日数(必)" %></th>
+               <th class="detail-item"><%= "合計・日数(必)" %></th>
+               <th class="detail-item"><%= "勤務時間の属性(必)" %></th>
                <th class="detail-item"><%= "備考" %></th>
           </tr>
           <tr>
-               <td class="detail-value"><%= f.date_field :joining_date %>
-               <td class="detail-value"><%= f.date_field :effective_period_start %>
-                                        <%= f.date_field :effective_period_end %></td>
-               <td class="detail-value"><%= "日数" %><%= f.number_field :last_year_days %>
-                                        <%= "時間" %><%= f.number_field :last_year_time %></td>
-               <td class="detail-value"><%= f.number_field :this_year_days %>
-               <td class="detail-value"><%= "日数" %><%= f.number_field :total_days %>
-                                        <%= "時間" %><%= f.number_field :total_time %></td>            
-               <td class="detail-value"><%= f.select :working_hours, ['7時間制', '8時間制',], {include_blank: '---'} %>
-               <td class="detail-value"><%= f.text_area :reason %>
+               <td class="detail-value">     <%= f.date_field :joining_date %>
+               <td class="detail-value">     <%= f.date_field :effective_period_start %>
+                                             <%= f.date_field :effective_period_end %></td>
+               <td class="detail-value">     <%= "日数" %><%= f.number_field :last_year_days, step: '0.1' %>
+                                        <br> <%= "時間" %><%= f.number_field :last_year_time %></td>
+               <td class="detail-value">     <%= f.number_field :this_year_days, step: '0.1' %>
+               <td class="detail-value">     <%= "日数" %><%= f.number_field :total_days, step: '0.1' %>
+                                   <br>      <%= "時間" %><%= f.number_field :total_time %></td>            
+               <td class="detail-value">     <%= f.select :working_hours, ['7時間制', '8時間制',], {include_blank: '---'} %>
+               <td class="detail-value">     <%= f.text_area :reason %>
           </tr>
      </table>
-     <%= f.submit "SEND" ,class:"send-btn"%>
-<% end %>
+     <%= f.submit "送信" ,class:"send-btn"%>
+</div>

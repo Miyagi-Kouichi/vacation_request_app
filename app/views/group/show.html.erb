@@ -1,21 +1,22 @@
 <%= render partial: "header", locals: { user: @user } %>
 
-<div class='item-info'>
-  <h3 class='group-name'>
-    <%= @group.group_name %>
-  </h3>
-  <% if @group.users.exists? %> 
-      <% @group.users.each do |f| %>
-        <%# <li> %>
-          <span>・<span><%= f.user_name %>
-        <%# </li>   %>
+
+  <div class='group-info'>
+    <h1 class='group-name'>
+      <%= @group.group_name %>
+    </h1>
+    <h3 class="group-member">
+      <% if @group.users.exists? %> 
+          <% @group.users.each do |f| %>
+              <%= f.user_name %>
+          <% end %>
+      <% else %>
+          <div class='menber_name'>
+            <span>グループメンバーがいません</span>
+          </div>
       <% end %>
-  <% else %>
-      <div class='menber_name'>
-        <span>グループメンバーがいません!</span>
-      </div>
-  <% end %>
-</div>
+    </h3>
+  </div>
 
 <ul class='item-contents'>
   <div class='item-info'>   
@@ -70,8 +71,8 @@
                         <% else %>
                               <td class="detail-value"><span>--</span></td>
                         <% end %>         
-                        <% if Request.exists?(holiday_id: f.id, position: "総務") %>
-                            <% request = Request.find_by(holiday_id: f.id, position: "総務") %>
+                        <% if Request.exists?(holiday_id: f.id, position: "システム管理者") %>
+                            <% request = Request.find_by(holiday_id: f.id, position: "システム管理者") %>
                             <% if request.yes_no == "yes" %>
                               <td class="detail-value"><span>✅</span><%= request.user.user_name %></td>
                             <% elsif request.yes_no == "no" %>
@@ -91,8 +92,8 @@
         <% end %>
       <% end %>
     <% else %>
-        <div class='menber_name'>
-          <span>有給休暇の申請はまだありません</span>
+        <div class='group-member'>
+          <h2>有給休暇の申請はまだありません</h29>
         </div>
     <% end %>       
   </div>

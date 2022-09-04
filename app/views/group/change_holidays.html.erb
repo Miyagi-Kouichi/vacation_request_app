@@ -1,0 +1,112 @@
+<%# <%= render partial: "header", locals: { user: @user } %>
+<div class="second-header">
+     <div class="left-header">
+          <div class="header-title">
+                    <h1>グループの週休変更申請一覧</h1>
+          </div>
+     </div>
+     <div class="right-header">
+          <div class="header-button">
+     
+               
+               <% unless current_user.position == "一般社員"  %>
+                    <%= link_to "従業員一覧", users_path %>
+                    <%= link_to "有給申請一覧", users_holiday_path %>
+                    <%= link_to "週休休暇一覧", users_week_holiday_change_path %>
+               <% end %>
+               <% if current_user.position == "システム管理者"  %>
+                    
+                    <% unless current_page?(controller: 'group', action: 'new') %>
+                         <%= link_to "新規グループ作成", new_group_path %>
+                    <% end %>
+               <% end %>
+          </div>
+     </div>
+</div>
+
+  <div class='group-info'>
+     <h1 class='group-name'>
+          <%= @group.group_name %>
+     </h1>
+     <h3 class="group-member">
+          <% if @group.users.exists? %> 
+               <% @group.users.each do |f| %>
+               <%= f.user_name %>
+               <% end %>
+          <% else %>
+               <div class='menber_name'>
+               <span>グループメンバーがいません</span>
+               </div>
+          <% end %>
+     </h3>
+  </div>
+
+<ul class='item-contents'>
+  <div class='item-info'>   
+     <% if @group_change_holidays.exists? %> 
+          <% @group_change_holidays.each do |f| %>
+          <%= link_to week_holiday_change_path(f.id), method: :get do %>
+               <table class="request-table">
+                    <tr>
+                         <th class="detail-item"><%= "名前" %></th>
+                         <th class="detail-item"><%= "申請日" %></th>
+                         <th class="detail-item"><%= "週休日" %></th>
+                         <th class="detail-item"><%= "変更日" %></th>
+                         <th class="detail-item"><%= "リーダー" %></th>
+                         <th class="detail-item"><%= "部長" %></th>
+                         <th class="detail-item"><%= "総務" %></th>
+                    </tr>
+                    <div class="formats">
+                         <tr>
+                  <td class="detail-value"><%= f.user.user_name %></td>
+                  <td class="detail-value"><%= f.created_at.strftime('%Y/%m/%d') %></td>
+                  <td class="detail-value"><%= "" %><%= f.original_leave.strftime('%Y/%m/%d') %>
+                  <td class="detail-value"><%= f.changed_leave.strftime('%Y/%m/%d') %></td>
+                  <% if WeekHCheck.exists?(week_holiday_change_id: f.id) %> 
+                        <% if WeekHCheck.exists?(week_holiday_change_id: f.id, position: "リーダー") %>
+                            <% check = WeekHCheck.find_by(week_holiday_change_id: f.id, position: "リーダー") %>
+                            <% if check.yes_no == "yes" %>
+                              <td class="detail-value"><span>✅</span><%= check.user.user_name %></td>
+                            <% elsif check.yes_no == "no" %>
+                              <td class="detail-value"><span>❌</span><%= check.user.user_name %></td>
+                            <% end %>
+                        <% else %>
+                              <td class="detail-value"><span>--</span></td>
+                        <% end %>
+                        <% if WeekHCheck.exists?(week_holiday_change_id: f.id, position: "部長") %>
+                            <% check = WeekHCheck.find_by(week_holiday_change_id: f.id, position: "部長") %>
+                            <% if check.yes_no == "yes" %>
+                              <td class="detail-value"><span>✅</span><%= check.user.user_name %></td>
+                            <% elsif check.yes_no == "no" %>
+                              <td class="detail-value"><span>❌</span><%= check.user.user_name %></td>
+                            <% end %>
+                        <% else %>
+                              <td class="detail-value"><span>--</span></td>
+                        <% end %>         
+                        <% if WeekHCheck.exists?(week_holiday_change_id: f.id, position: "システム管理者") %>
+                            <% check = WeekHCheck.find_by(week_holiday_change_id: f.id, position: "システム管理者") %>
+                            <% if check.yes_no == "yes" %>
+                              <td class="detail-value"><span>✅</span><%= check.user.user_name %></td>
+                            <% elsif check.yes_no == "no" %>
+                              <td class="detail-value"><span>❌</span><%= check.user.user_name %></td>
+                            <% end %>
+                        <% else %>
+                              <td class="detail-value"><span>--</span></td>
+                        <% end %> 
+                  <% else %>
+                      <td class="detail-value"><span>--</span></td>
+                      <td class="detail-value"><span>--</span></td>
+                      <td class="detail-value"><span>--</span></td>
+                  <% end %>
+               </tr>
+                    </div>
+               </table>
+          <% end %>
+          <% end %>
+     <% else %>
+          <div class='group-member'>
+               <h2>有給休暇の申請はまだありません</h29>
+          </div>
+     <% end %>       
+  </div>
+</ul>

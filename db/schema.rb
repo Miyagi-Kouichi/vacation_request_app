@@ -60,9 +60,9 @@ ActiveRecord::Schema.define(version: 2021_12_31_082221) do
   end
 
   create_table "remaining_holidays", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.integer "last_year_days", null: false
+    t.float "last_year_days", null: false
     t.integer "last_year_time", null: false
-    t.integer "this_year_days", null: false
+    t.float "this_year_days", null: false
     t.float "total_days", null: false
     t.integer "total_time", null: false
     t.string "working_hours", null: false
@@ -100,8 +100,6 @@ ActiveRecord::Schema.define(version: 2021_12_31_082221) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "week_h_checks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
