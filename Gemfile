@@ -62,4 +62,6 @@ gem 'devise'
 
 gem 'pry-rails'
 
-gem 'rails_12factor', group: :production
+
+gem 'unicorn', '5.4.1'
+
