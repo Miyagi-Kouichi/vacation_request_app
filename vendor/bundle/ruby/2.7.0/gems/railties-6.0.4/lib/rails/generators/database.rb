@@ -42,7 +42,8 @@ module Rails
       private
         def mysql_socket
           @mysql_socket ||= [
-            "/tmp/mysql.sock",                        # default
+            # "/tmp/mysql.sock",   
+            "/var/lib/mysql/mysql.sock",                   # default
             "/var/run/mysqld/mysqld.sock",            # debian/gentoo
             "/var/tmp/mysql.sock",                    # freebsd
             "/var/lib/mysql/mysql.sock",              # fedora
