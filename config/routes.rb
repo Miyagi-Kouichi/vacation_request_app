@@ -4,6 +4,10 @@ Rails.application.routes.draw do
     :passwords => 'users/passwords'
   }
 
+  devise_scope :user do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
+
   get "users/holiday" => "users#holiday"
   get "users/week_holiday_change" => "users#week_holiday_change"
 
