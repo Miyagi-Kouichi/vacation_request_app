@@ -2,20 +2,19 @@ class GroupUserController < ApplicationController
      before_action :authenticate_user!
      # before_action :set_group, only: [:edit, :show, :update,]
 
-     def create
+     def add_member
           @group = Group.find(params[:group_id]) 
           @user = User.find(params[:user_id]) 
           @group.users << @user
           if @group.save
-               redirect_to group_group_user_path(group_id: @group.id, id: @group.id)
-               # 将来的には、JavaScriptで非同期通信にしたい
+               redirect_to group_add_page_path(group_id: @group.id)
           else
                render :new
           end
      end
 
-     def show
-          @group = Group.find(params[:id])
+     def add_page
+          @group = Group.find(params[:group_id])
           @user = User.all
      end
 
@@ -33,6 +32,6 @@ class GroupUserController < ApplicationController
           @group = Group.find(params[:group_id])
           @user = User.find(params[:user_id])
           @group.users << @user
-          redirect_to group_path, notice: "ユーザーを追加しました。"
+          redirect_to group_group_user_path
      end
 end

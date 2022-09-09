@@ -58,6 +58,7 @@ class GroupController < ApplicationController
           @group.users << @user
           if @group.save
                redirect_to group_user_path(group_id: @group.id, id: @group.id)
+               # redirect_to group_user_path(group_id: @group.id, id: @group.id)
                # 将来的には、JavaScriptで非同期通信にしたい
           else
                render :show
@@ -68,6 +69,18 @@ class GroupController < ApplicationController
           @group = Group.find(params[:id])
           @group.destroy
           redirect_to root_path
+     end
+
+     def add_page
+          @group = Group.find(params[:id])
+          @user = User.all
+     end
+
+     def add
+          @group = Group.find(params[:group_id])
+          @user = User.find(params[:user_id])
+          @group.users << @user
+          redirect_to group_add_member_path
      end
 
 
