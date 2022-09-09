@@ -71,17 +71,6 @@ class GroupController < ApplicationController
           redirect_to root_path
      end
 
-     def add_page
-          @group = Group.find(params[:id])
-          @user = User.all
-     end
-
-     def add
-          @group = Group.find(params[:group_id])
-          @user = User.find(params[:user_id])
-          @group.users << @user
-          redirect_to group_add_member_path
-     end
 
 
 

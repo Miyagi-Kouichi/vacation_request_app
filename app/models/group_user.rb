@@ -4,7 +4,7 @@ class GroupUser < ApplicationRecord
      # belongs_to :group, foreign_key: :group_id
      belongs_to :group
 
-     validates :user_id, uniqueness: { scope: :group_id }
+     # validates :user_id, uniqueness: { scope: :group_id }
 
      # validates :user_id, uniqueness: { scope: :group_id}
 end

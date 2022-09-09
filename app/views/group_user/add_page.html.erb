@@ -52,7 +52,7 @@
           <li> <%= user.user_name %>さん</li>
         </div>
         <div class="users-contents">
-          <%= link_to "追加", group_add_member_path(group_id: @group.id, user_id:user.id),method: :post %>
+          <%= link_to "追加", group_add_member_path(group_id: @group.id, user_id: user.id),method: :post %>
         </div>
       </ul>
     <% end %>

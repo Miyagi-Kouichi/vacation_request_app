@@ -9,7 +9,7 @@ class GroupUserController < ApplicationController
           if @group.save
                redirect_to group_add_page_path(group_id: @group.id)
           else
-               render :new
+               render :add_page
           end
      end
 
@@ -24,14 +24,4 @@ class GroupUserController < ApplicationController
      private
      # ストロングパラメータ
 
-     def set_group
-          # @group = Group.find(params[:group_id])
-     end
-
-     def add_user
-          @group = Group.find(params[:group_id])
-          @user = User.find(params[:user_id])
-          @group.users << @user
-          redirect_to group_group_user_path
-     end
 end
