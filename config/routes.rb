@@ -21,8 +21,8 @@ Rails.application.routes.draw do
   resources :group do
     get 'change_holidays', to:'group#change_holidays'
     # resources :group_user, only:  [:show, :create, :destroy]
-    get 'add_page' => 'group_user#add_page'
-    post 'add_member' => 'group_user#add_member'
+    get 'add_page' => 'group_user#index'
+    post 'add_member' => 'group_user#create'
   end
 
   # get "group/change_holidays_show" => "group#change_holidays_show"
