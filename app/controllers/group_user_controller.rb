@@ -9,7 +9,7 @@ class GroupUserController < ApplicationController
           if @group.save
                redirect_to group_add_page_path(group_id: @group.id)
           else
-               redirect_to root_path
+               redirect_to :root
           end
      end
 

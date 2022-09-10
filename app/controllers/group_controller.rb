@@ -68,7 +68,7 @@ class GroupController < ApplicationController
      def destroy
           @group = Group.find(params[:id])
           @group.destroy
-          redirect_to root_path
+          redirect_to :root
      end
 
 
