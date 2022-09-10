@@ -2,7 +2,7 @@ class GroupUserController < ApplicationController
      before_action :authenticate_user!
      # before_action :set_group, only: [:edit, :show, :update,]
 
-     def add_member
+     def create
           @group = Group.find(params[:group_id]) 
           @user = User.find(params[:user_id]) 
           @group.users << @user
@@ -13,7 +13,7 @@ class GroupUserController < ApplicationController
           end
      end
 
-     def add_page
+     def index
           @group = Group.find(params[:group_id])
           @user = User.all
      end
