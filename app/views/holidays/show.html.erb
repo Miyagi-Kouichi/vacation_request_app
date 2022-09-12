@@ -106,14 +106,14 @@
                         <% unless @h.user_id == current_user.id %>
                               <% if current_user.position == "役員" || current_user.position == "システム管理者" %>
                                     <%# 部長と総務はグループに属していなくても承認できる。 %>
-                                    <%=link_to "承認", holiday_agreement_path(@h.id), method: :post %>   
-                                    <%=link_to "否認", holiday_rejected_path(@h.id), method: :post %>
+                                    <%=button_to "承認", holiday_agreement_path(@h.id), method: :post %>   
+                                    <%=button_to "否認", holiday_rejected_path(@h.id), method: :post %>
                               <% elsif @user.position.in?(['リーダー', '主任', '部長']) || @h.user.groups.in?(current_user.groups) %>
                                           
                                     <% if (@h.user.groups.ids - current_user.groups.ids).size < @h.user.groups.ids.size %>
                                           <%# リーダーの所属しているグループidが、申請者のグループidを含んでいればOK %>
-                                          <%=link_to "承認", holiday_agreement_path(@h.id), method: :post %>   
-                                          <%=link_to "否認", holiday_rejected_path(@h.id), method: :post %>
+                                          <%=button_to "承認", holiday_agreement_path(@h.id), method: :post %>   
+                                          <%=button_to "否認", holiday_rejected_path(@h.id), method: :post %>
                                     <% end %>
                               <% end %>
                         <% end %>
