@@ -14,10 +14,10 @@
     </div>
 
     <div class='add-group'>
-      <%= link_to "グループメンバーの追加", group_add_page_path(group_id: @group.id) %>
+      <%= button_to "グループメンバーの追加", group_add_page_path(group_id: @group.id) %>
     </div>
     <div class="delete-btn">
-      <%= link_to 'グループを消去する', group_path(@group.id), data: { confirm: '削除しますか？' }, method: :delete %>
+      <%= button_to 'グループを消去する', group_path(@group.id), data: { confirm: '削除しますか？' }, method: :delete %>
     </div>
 
   </div>

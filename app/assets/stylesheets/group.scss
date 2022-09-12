@@ -11,16 +11,16 @@
 //      color: black;
 // }
 .item-show {
-     background-color: #a7a7a7;
+     background-color: #d1cece;
      width: 100vw;
      // height: 100vw;
      display: flex;
      flex-direction: column;
      align-items: center;
-     padding: 10vh 0;
+     padding-top: 10vh;
 }
 .item-box {
-     background-color: rgb(233, 233, 233);
+     background-color: #909090;
      width: 70vw;
      min-width: 1200px;
      // height: 100vw;
@@ -32,13 +32,13 @@
 
 
 .edit-form {
-     background-color: rgb(233, 233, 233);
+     // background-color: rgb(94, 94, 94);
      text-align: center;
      font-size: 30px;
      color: black;
      margin: 20px 0px;
      padding: 2vh 10vw;
-     border-bottom: 1px solid #a7a7a7;
+     // border-bottom: 1px solid #a7a7a7;
      
 }
 .container4 {
@@ -63,21 +63,21 @@
 
 .add-group {
      text-align: center;
-     background-color: #007bfe;
+     // background-color: #007bfe;
      font-size: 24px;
      font-weight: bold;
      color: rgb(255, 255, 255);
-     margin: 30px 0px;
+     margin: 10px 0px;
      padding: 2vh 10vw;
 }
 
 .delete-btn {
      text-align: center;
-     background-color: #ea352d;
+     // background-color: #ea352d;
      font-size: 24px;
      font-weight: bold;
-     color: #FFF;
-     margin: 30px 0px;
+     // color: #FFF;
+     margin: 10px 0px;
      padding: 2vh 10vw;
 }
 
