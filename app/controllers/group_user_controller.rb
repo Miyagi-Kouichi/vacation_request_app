@@ -13,7 +13,7 @@ class GroupUserController < ApplicationController
           end
      end
 
-     def index
+     def show
           @group = Group.find(params[:group_id])
           @user = User.all
      end
