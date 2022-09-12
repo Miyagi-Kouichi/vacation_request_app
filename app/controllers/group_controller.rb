@@ -1,6 +1,7 @@
 class GroupController < ApplicationController
      before_action :authenticate_user!
      before_action :set_group, only: [:edit, :show, :update, :destroy]
+     protect_from_forgery :except => [:destroy]
      # , :change_holidays_show
 
      def index
