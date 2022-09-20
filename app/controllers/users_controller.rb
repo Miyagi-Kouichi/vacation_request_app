@@ -16,12 +16,12 @@ class UsersController < ApplicationController
 
   def holiday
     @users = User.all
-    @holidays = Holiday.all.order(updated_at: :desc)
+    @holidays = Holiday.all.order(updated_at: :desc).page(params[:page]).per(10)
   end
 
   def week_holiday_change
     @users = User.all
-    @changes = WeekHolidayChange.all.order(created_at: :desc)
+    @changes = WeekHolidayChange.all.order(created_at: :desc).page(params[:page]).per(10)
   end
 
 

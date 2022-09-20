@@ -20,6 +20,9 @@
 
      <div class="content-title">
                <h3>有給休暇の申請</h3> 
+               <%= paginate @holiday %>
+     </div>
+     <div class="btn btn--orange">
                <%= button_to "キャンセル申請", holidays_cancel_new_path %>
      </div>
 
@@ -61,9 +64,12 @@
                     </table>   
                <% end %>
           <% end %>
+               <div class="content-title">
+               <%= paginate @holiday %>
+               </div>
      <% else %>
           <div class='menber_name'>
-               <h3>週休の変更申請はまだありません</h3>
+               <h3>有休申請はまだありません</h3>
           </div>
      <% end %>  
 
@@ -140,6 +146,7 @@
                          <% end %>
                     <% end %>
                <% end %>
+               <div class="content-title"><%= paginate @week_holidays %></div>
           <% else %>
                <div class='menber_name'>
                     <h3>週休の変更申請はまだありません</h3>

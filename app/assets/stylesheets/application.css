@@ -192,3 +192,51 @@ a {
 
      font-size: 20px;
 }
+
+
+.btn,
+a.btn,
+button.btn {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+.btn--orange,
+a.btn--orange {
+     display: flex;
+     justify-content: center;
+}
+
+/*ページネーション自体のデザイン*/
+.pagination>li>a {          
+     border: none;     /*枠線をなくす*/
+     color: #696969;   /*文字の色を変える*/
+}
+
+/* 表示しているページ番号のデザイン */
+.pagination>.active>a {     
+     background: #93c9ff;     /*背景の色を変える*/
+     border-radius: 15px;     /*角を丸くする*/
+}
+
+/*ホバー時のデザイン*/
+.pagination>li>a:hover {        
+     border-radius: 15px;    /*角を丸くする*/
+}

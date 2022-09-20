@@ -21,6 +21,7 @@
 <ul class='item-contents'>
   <div class='item-info'>   
     <% if @group_holidays.exists? %> 
+    <div class="content-title"><%= paginate @group_holidays %></div>
       <% @group_holidays.each do |f| %>
         <%= link_to holiday_path(f.id), method: :get do %>
           <table class="request-table">
@@ -91,6 +92,7 @@
           </table>
         <% end %>
       <% end %>
+      <div class="content-title"><%= paginate @group_holidays %></div>
     <% else %>
         <div class='group-member'>
           <h2>有給休暇の申請はまだありません</h29>
