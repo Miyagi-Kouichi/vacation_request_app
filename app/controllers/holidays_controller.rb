@@ -6,8 +6,9 @@ class HolidaysController < ApplicationController
 
      def index
      #     @holiday = Holiday.all.includes(:user)
-          @holiday = current_user.holidays.all.order(created_at: :desc)
-          @week_holidays = current_user.WeekHolidayChanges.all.order(created_at: :desc)
+          # @holiday = current_user.holidays.all.order(created_at: :desc)
+          @holiday = current_user.holidays.all.order(updated_at: :desc)
+          @week_holidays = current_user.WeekHolidayChanges.all.order(updated_at: :desc)
      end
 
      def new

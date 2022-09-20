@@ -39,7 +39,7 @@
                          </tr>
                          <div class="formats">
                               <tr>
-                                   <td class="detail-value"><%= f.created_at.strftime('%Y/%m/%d') %></td>
+                                   <td class="detail-value"><%= f.updated_at.strftime('%Y/%m/%d') %></td>
                                    <td class="detail-value"><%= "" %><%= f.application_date.strftime('%Y/%m/%d') %>
                                    <td class="detail-value"><%= f.acquisition_days %></td>
                                    <% if f.holiday_time_start.nil? %> 

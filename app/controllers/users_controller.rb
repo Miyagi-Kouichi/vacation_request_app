@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
   def holiday
     @users = User.all
-    @holidays = Holiday.all.order(created_at: :desc)
+    @holidays = Holiday.all.order(updated_at: :desc)
   end
 
   def week_holiday_change

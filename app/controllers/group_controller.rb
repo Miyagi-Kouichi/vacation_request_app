@@ -26,7 +26,7 @@ class GroupController < ApplicationController
 
      def show
           member_id = @group.users.ids
-          @group_holidays = Holiday.where(user_id: member_id).order(created_at: :desc)
+          @group_holidays = Holiday.where(user_id: member_id).order(updated_at: :desc)
      end
 
      def change_holidays
