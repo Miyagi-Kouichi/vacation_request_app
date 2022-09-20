@@ -72,14 +72,14 @@
                   <% unless @week_holiday.user_id == current_user.id %>                 <!-- 自分はまだ承認していなくて、まだ否認もされていない場合。ログインユーザーのポジションが部長か総務のいずれか -->
                         <% if current_user.position == "役員" || current_user.position == "システム管理者" %>
                               <%# 役員と総務はグループに属していなくても承認できる。 %>
-                              <%=link_to "承認", week_holiday_change_agreement_path(@week_holiday.id), method: :post %>   
-                              <%=link_to "否認", week_holiday_change_rejected_path(@week_holiday.id), method: :post %>
+                              <%=button_to "承認", week_holiday_change_agreement_path(@week_holiday.id), method: :post %>   
+                              <%=button_to "否認", week_holiday_change_rejected_path(@week_holiday.id), method: :post %>
                         <% elsif current_user.position.in?(['リーダー', '主任', '部長']) %>
                                     
                               <% if (@week_holiday.user.groups.ids - current_user.groups.ids).size < @week_holiday.user.groups.ids.size %>
                                     <%# リーダーの所属しているグループidが、申請者のグループidを含んでいればOK %>
-                                    <%=link_to "承認", week_holiday_change_agreement_path(@week_holiday.id), method: :post %>   
-                                    <%=link_to "否認", week_holiday_change_rejected_path(@week_holiday.id), method: :post %>
+                                    <%=button_to "承認", week_holiday_change_agreement_path(@week_holiday.id), method: :post %>   
+                                    <%=button_to "否認", week_holiday_change_rejected_path(@week_holiday.id), method: :post %>
                               <% end %>
                         <% end %>
                   <% end %>

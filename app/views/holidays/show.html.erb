@@ -98,10 +98,8 @@
                   <% if @h.yes_no? %>                          <!-- 自分はリクエスト機能を使っていないが、既に否認（NO）されている場合の処理 -->
                         <% if @h.user_id == current_user.id %> <!-- 投稿した本人なら、編集・削除できる。 -->
                               <%= "削除・編集機能は一覧表示が見づらくなるので停止してみています"  %>
-                              <%# <td><%= link_to "編集", edit_holiday_path(@h) %>
-                              <%# </td>  %>
-                              <%# <td><%= button_to "削除", holiday_path(@h), method: :delete %>
-                              <%# </td>   %>
+                              <td><%= link_to "編集", edit_holiday_path(@h) %></td>
+                              <td><%= button_to "削除", holiday_path(@h), method: :delete %></td>  
                         <% end %>
                   <% else %>                    <!-- 自分はまだ承認していなくて、まだ否認もされていない場合。ログインユーザーのポジションが部長か総務のいずれか -->
                         <% unless @h.user_id == current_user.id %>
