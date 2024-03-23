@@ -1,0 +1,32 @@
+<div class="container">
+  <%= render partial: "header", locals: { user: @user } %>
+  
+  <%= form_with model: @holiday do |f| %>
+    <% if RemainingHoliday.exists?(user_id: current_user.id) %>
+      <h2 class="remaining_holiday">残り<%= @r.changeable_days  %>日<%= @r.changeable_time %>時間</h2>
+        <table class="request-table">
+          <tr>
+            <th class="detail-item"><%= "申請日" %></th>
+            <th class="detail-item"><%= "有休タイプ" %></th>
+            <th class="detail-item"><%= "有休開始日(必須)" %></th>
+            <th class="detail-item"><%= "有休最終日(必須)" %></th>
+            <th class="detail-item"><%= "取得日数(必須)" %></th>
+            <th class="detail-item"><%= "事由(必須)" %></th>
+          </tr>
+          <tr>
+            <td class="detail-value"><%= Date.today %></td>
+            <td class="detail-value"><%= f.select :acquisition_days,  ['複数日'],id:"holiday-acquisition-days"%></td>
+            <td class="detail-value"><%= "" %><%= f.date_field :application_date %>
+            <td class="detail-value"><%= "" %><%= f.date_field :application_date %>
+            <td class="detail-value"><%= f.number_field :acquisition_time %></td>
+            <td class="detail-value"><%= f.text_area :reason %></td>
+            
+          </tr>
+        </table>
+    <%= f.submit "SEND" ,class:"send-btn"%>
+    <% else %>
+      <h3 class="remaining_holiday"><%= "まだ今年度の有給が記入されていません" %></h3>
+    <% end %>
+  <% end %>
+  
+</div>

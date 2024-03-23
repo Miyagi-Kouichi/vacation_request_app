@@ -1,12 +1,10 @@
 class HolidaysController < ApplicationController
      before_action :authenticate_user!
-     before_action :set_current_user, only: [:index, :new, :edit, :show, :update,]
-     before_action :set_r_holiday, only: [:index, :new, :create, :edit, :show, :update, :cancel_new, :cancel_create]
+     before_action :set_current_user, only: [:index, :new, :edit, :show, :update, :consecutive_holiday]
+     before_action :set_r_holiday, only: [:index, :new, :create, :edit, :show, :update, :cancel_new, :cancel_create, :consecutive_holiday]
      before_action :set_group, only: [:index, :new, :create]
 
      def index
-     #     @holiday = Holiday.all.includes(:user)
-          # @holiday = current_user.holidays.all.order(created_at: :desc)
           @holiday = current_user.holidays.all.order(updated_at: :desc).page(params[:page]).per(10)
           @week_holidays = current_user.WeekHolidayChanges.all.order(updated_at: :desc).page(params[:page]).per(10)
      end
@@ -24,6 +22,11 @@ class HolidaysController < ApplicationController
           else
                render action: :new
           end
+     end
+
+     # 連休の申請をするためのページとそれを
+     def consecutive_holiday
+          @holiday = Holiday.new
      end
 
      def cancel_create

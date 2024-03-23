@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   # get "group/change_holidays_show" => "group#change_holidays_show"
   get "holidays/cancel_new" => "holidays#cancel_new"
+  get "holidays/consecutive_holiday" => "holidays#consecutive_holiday"
   post "holidays/cancel_create" => "holidays#cancel_create"
 
   resources :holidays do
